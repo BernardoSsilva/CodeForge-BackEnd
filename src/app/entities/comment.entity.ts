@@ -3,6 +3,7 @@ import { Entity } from '../../shared/entities/entity';
 export type CommentProps = {
   tittle: string;
   content: string;
+  createdAt:Date
 };
 
 export class CommentEntity extends Entity<CommentProps> {
@@ -20,5 +21,8 @@ export class CommentEntity extends Entity<CommentProps> {
 
   get content(): string {
     return this.props.content;
+  }
+  get createdAt():Date{
+    return this.props.createdAt
   }
 }
