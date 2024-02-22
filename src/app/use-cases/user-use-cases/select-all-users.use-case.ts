@@ -1,4 +1,4 @@
-import { UserRepository } from "src/app/repositories/user.repository";
+import { UserRepository } from "../../../app/repositories/user.repository";
 
 
 export class SelectAllUsersUseCase{
