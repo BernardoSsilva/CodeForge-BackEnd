@@ -12,5 +12,5 @@ export abstract class CommentRepository {
 
   abstract getAllCommentsByUserId(userId: string): Promise<CommentEntity[]>;
 
-  abstract updateComment(comment: CommentEntity): Promise<void>;
+  abstract updateComment(comment: CommentEntity, commentId:string): Promise<void>;
 }
