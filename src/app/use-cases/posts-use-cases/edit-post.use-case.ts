@@ -5,6 +5,6 @@ export class EditPostUseCase{
     constructor(private postRepository:PostRepository){}
 
     async execute(postData:PostEntity, postId:string){
-        await this.postRepository.updatePost(postData, postId)
+        return await this.postRepository.updatePost(postData, postId)
     }
 }

@@ -5,6 +5,6 @@ export class CreatePostUseCase{
     constructor(private postRepository:PostRepository){}
 
     async execute(post:PostEntity){
-        await this.postRepository.createPost(post)
+        return await this.postRepository.createPost(post)
     }
 }

@@ -4,6 +4,6 @@ export class FindUserByEmailUseCase{
     constructor(private userRepository:UserRepository){}
 
     async execute(userEmail:string){
-        await this.userRepository.getByEmail(userEmail)    
+        return await this.userRepository.getByEmail(userEmail)    
     }
 }

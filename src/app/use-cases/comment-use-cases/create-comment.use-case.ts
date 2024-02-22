@@ -4,6 +4,6 @@ import { CommentRepository } from "../../../app/repositories/comment.repository"
 export class CreateCommentUseCase{
     constructor(private commentRepository:CommentRepository){}
     async execute(comment:CommentEntity){
-        await this.commentRepository.postComment(comment)
+        return await this.commentRepository.postComment(comment)
     }
 }
