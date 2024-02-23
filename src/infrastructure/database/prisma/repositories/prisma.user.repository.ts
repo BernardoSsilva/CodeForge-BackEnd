@@ -50,8 +50,12 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
-  deleteUser(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deleteUser(id: string): Promise<void> {
+    try {
+      await this.prisma.user.delete({ where: { userId: id } });
+    } catch {
+      throw new Error();
+    }
   }
   getByEmail(email: string): Promise<UserEntity> {
     throw new Error('Method not implemented.');
