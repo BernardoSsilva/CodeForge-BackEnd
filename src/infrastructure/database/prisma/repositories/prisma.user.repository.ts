@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { UserRepository } from "../../../app/repositories/user.repository";
+import { UserRepository } from "../../../../app/repositories/user.repository";
 import { UserEntity } from "src/app/entities/user.entity";
-import { PrismaService } from "../prisma/prisma.service";
+import { PrismaService } from "../prisma.service";
+import { UserMapper } from "../mappers/user.mapper";
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository{
@@ -10,7 +11,7 @@ export class PrismaUserRepository implements UserRepository{
     async findAllUsers(): Promise<UserEntity[]> {
         try{
             const result = await this.prisma.user.findMany()
-            return result
+            return result.map(user => UserMapper.toDomain(user))
         }
         catch{
             throw new Error
