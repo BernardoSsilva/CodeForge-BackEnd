@@ -4,6 +4,6 @@ export class FindUserByLoginUseCase{
     constructor( private userRepository:UserRepository){}
 
     async execute(userLogin:string){
-        await this.userRepository.getByLogin(userLogin);
+        return await this.userRepository.getByLogin(userLogin);
     }
 }

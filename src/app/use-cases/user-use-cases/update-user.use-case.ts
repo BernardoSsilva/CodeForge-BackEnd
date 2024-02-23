@@ -4,6 +4,6 @@ export class UpdateUserUseCase{
     constructor( private userRepository:UserRepository){}
 
     async execute(userData:UserEntity, userId:string){
-        await this.userRepository.updateUser(userData, userId)
+        return await this.userRepository.updateUser(userData, userId)
     }
 }

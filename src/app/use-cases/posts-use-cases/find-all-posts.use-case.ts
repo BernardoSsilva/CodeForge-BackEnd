@@ -4,6 +4,6 @@ export class GetAllPostsUseCase{
     constructor(private postRepository:PostRepository){}
 
     async execute(){
-        await this.postRepository.getAllPosts()
+        return await this.postRepository.getAllPosts()
     }
 }

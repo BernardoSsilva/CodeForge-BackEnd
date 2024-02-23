@@ -4,6 +4,6 @@ export class GetPostByIdUseCase{
     constructor(private postRepository:PostRepository){}
 
     async execute(postId:string){
-        await this.postRepository.getPostById(postId)
+        return await this.postRepository.getPostById(postId)
     }
 }
