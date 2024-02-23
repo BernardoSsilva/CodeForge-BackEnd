@@ -4,6 +4,6 @@ export class DeleteUserUseCase{
     constructor(private userRepository:UserRepository){}
 
     async execute(userId:string){
-        await this.userRepository.deleteUser(userId)
+        return await this.userRepository.deleteUser(userId)
     }
 }

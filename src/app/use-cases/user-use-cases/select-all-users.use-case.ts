@@ -5,6 +5,6 @@ export class SelectAllUsersUseCase{
     constructor(private userRepository:UserRepository){}
 
     async execute(){
-        await this.userRepository.findAllUsers();
+        return await this.userRepository.findAllUsers();
     }
 }
