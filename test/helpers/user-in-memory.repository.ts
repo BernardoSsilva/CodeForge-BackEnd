@@ -25,7 +25,7 @@ export class UserInMemoryRepository implements UserRepository {
       (user) => user.id === userId,
     );
 
-    if (!userToBeUpdated) {
+    if (userToBeUpdated < 0) {
       throw new NotFoundError('User not found');
     }
     this.users[userToBeUpdated] = user;
