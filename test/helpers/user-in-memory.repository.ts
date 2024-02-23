@@ -35,7 +35,7 @@ export class UserInMemoryRepository implements UserRepository {
       (user) => user.id === id,
     );
 
-    if (!userToBeDeleted) {
+    if (userToBeDeleted < 0) {
       throw new NotFoundError('User not found');
     }
     this.users.splice(userToBeDeleted, 1);
