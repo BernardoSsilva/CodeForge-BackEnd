@@ -1,6 +1,6 @@
 import { PostRepository } from "../../../app/repositories/post.repository";
 
-export class GetAllPostsUseCase{
+export class FindAllPostsUseCase{
     constructor(private postRepository:PostRepository){}
 
     async execute(){
