@@ -1,7 +1,7 @@
-import { UserRepository } from "../../../app/repositories/user.repository";
+import { UserRepository } from "../../repositories/user.repository";
 
 
-export class GetAllUsersUseCase{
+export class FindAllUsersUseCase{
     constructor(private userRepository:UserRepository){}
 
     async execute(){

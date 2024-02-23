@@ -1,9 +1,9 @@
 import { UserEntity } from '../../../../app/entities/user.entity';
 import { UserInMemoryRepository } from '../../../../../test/helpers/user-in-memory.repository';
-import { GetAllUsersUseCase } from '../select-all-users.use-case';
+import { FindAllUsersUseCase } from '../find-all-users.use-case';
 describe('Find all users use case unit tests', () => {
   const userRepository = new UserInMemoryRepository();
-  const findAllUsers = new GetAllUsersUseCase(userRepository);
+  const findAllUsers = new FindAllUsersUseCase(userRepository);
 
   it('Should be able to find all users', async () => {
     const newUser = new UserEntity({
