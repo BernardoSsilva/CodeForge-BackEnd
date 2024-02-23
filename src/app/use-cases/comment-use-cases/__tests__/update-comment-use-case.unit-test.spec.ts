@@ -2,11 +2,11 @@ import { CommentsInMemoryRepository } from '../../../../../test/helpers/comments
 import { CommentEntity } from '../../../../app/entities/comment.entity';
 import { UpdateCommentUseCase } from '../update-comment.use-case';
 
-describe('Update post use case unit tests', () => {
+describe('Update comment use case unit tests', () => {
   const commentRepository = new CommentsInMemoryRepository();
   const updateComment = new UpdateCommentUseCase(commentRepository);
 
-  it('Should throw an error if post not found', () => {
+  it('Should throw an error if comment not found', () => {
     const newComment = new CommentEntity({
       content: 'testContent',
       createdAt: new Date(),
@@ -34,7 +34,7 @@ describe('Update post use case unit tests', () => {
     ).rejects.toThrow();
   });
 
-  it('Should be able to update a post', async () => {
+  it('Should be able to update a comment', async () => {
     const firstComment = new CommentEntity({
       content: 'testContent',
       createdAt: new Date(),
