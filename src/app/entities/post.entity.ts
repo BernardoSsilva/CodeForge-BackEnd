@@ -6,7 +6,7 @@ export type PostProps = {
   comments: number;
   likes: number;
   tags: string[];
-  createdAt: Date;
+  createdAt?: Date;
   userId:string
 };
 

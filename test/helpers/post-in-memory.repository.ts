@@ -38,6 +38,9 @@ export class PostsInMemoryRepository implements PostRepository {
     if (updatedPost < 0) {
       throw new NotFoundError('Post not found');
     }
+    if(!post){
+        throw new BadRequestError("Post entity is required")
+    }
     this.posts[updatedPost] = post;
   }
   async deletePost(id: string): Promise<void> {
