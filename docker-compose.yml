@@ -10,8 +10,9 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=socialWebPrototype
     ports:
-      - '3307:3307'
+      - '3307:5432'
 
 volumes:
   socialWebPrototype:
