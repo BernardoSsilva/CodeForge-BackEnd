@@ -1,15 +1,17 @@
-import { CommentsInMemoryRepository } from '../../../../../test/helpers/comments-in-memory-repository';
+import { CommentsInMemoryRepository } from "../../../../../test/helpers/comments-in-memory-repository"
+import { GetAllCommentsUseCase } from "../get-all-comments.use-case"
 import { CommentEntity } from '../../../../app/entities/comment.entity';
-import { CreateCommentUseCase } from '../create-comment.use-case';
-describe("Create a new comment use case unit tests",() =>{
 
+describe("Get all users use cases unit tests", () =>{
     const commentRepository = new CommentsInMemoryRepository()
-    const createComment = new CreateCommentUseCase(commentRepository)
-    it("Should throw error if send a empty comment",() =>{
-        expect(async () => await createComment.execute(null)).rejects.toThrow();
+    const getAllComments = new GetAllCommentsUseCase(commentRepository);
+
+    it("Should throw an error if has no comments", () =>{
+        expect(async () => await getAllComments.execute()).rejects.toThrow()
+
     })
 
-    it("Should be able to create a new comment", async () =>{
+    it("Should be able to find all comments",async () =>{
         const newComment = new CommentEntity({
             content: "testContent",
             createdAt: new Date(),
@@ -18,14 +20,14 @@ describe("Create a new comment use case unit tests",() =>{
             tittle: "testTittle"
         })
 
-        await createComment.execute(newComment)
+        await commentRepository.postComment(newComment)
 
-        expect(commentRepository.comments[0]).toBeDefined()
+        expect(commentRepository.comments).toHaveLength(1)
         expect(commentRepository.comments[0].id).toEqual(newComment.id)
         expect(commentRepository.comments[0].content).toEqual(newComment.content)
         expect(commentRepository.comments[0].postId).toEqual(newComment.postId)
-        expect(commentRepository.comments[0].userId).toEqual(newComment.userId)
         expect(commentRepository.comments[0].tittle).toEqual(newComment.tittle)
+        expect(commentRepository.comments[0].userId).toEqual(newComment.userId)
         expect(commentRepository.comments[0].createdAt).toBeInstanceOf(Date)
     })
 })

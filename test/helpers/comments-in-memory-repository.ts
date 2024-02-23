@@ -23,6 +23,9 @@ export class CommentsInMemoryRepository implements CommentRepository{
         
     }
     async getAllComments(): Promise<CommentEntity[]> {
+        if(this.comments.length <= 0){
+            throw new NotFoundError("comments not found")
+        }
         return await this.comments;
     }
     async getCommentById(commentId: string): Promise<CommentEntity> {
