@@ -1,6 +1,6 @@
-import { PostRepository } from "../../../app/repositories/post.repository";
+import { PostRepository } from "../../repositories/post.repository";
 
-export class GetAllPostsFromUserUseCase{
+export class FindAllPostsFromUserUseCase{
     constructor( private postRepository:PostRepository){}
 
     async execute(userId:string){
