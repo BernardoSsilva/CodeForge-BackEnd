@@ -22,12 +22,14 @@ describe("Get all users use cases unit tests", () =>{
 
         await commentRepository.postComment(newComment)
 
+        const result = await getAllComments.execute();
+
         expect(commentRepository.comments).toHaveLength(1)
-        expect(commentRepository.comments[0].id).toEqual(newComment.id)
-        expect(commentRepository.comments[0].content).toEqual(newComment.content)
-        expect(commentRepository.comments[0].postId).toEqual(newComment.postId)
-        expect(commentRepository.comments[0].tittle).toEqual(newComment.tittle)
-        expect(commentRepository.comments[0].userId).toEqual(newComment.userId)
-        expect(commentRepository.comments[0].createdAt).toBeInstanceOf(Date)
+        expect(commentRepository.comments[0].id).toEqual(result[0].id)
+        expect(commentRepository.comments[0].content).toEqual(result[0].content)
+        expect(commentRepository.comments[0].postId).toEqual(result[0].postId)
+        expect(commentRepository.comments[0].tittle).toEqual(result[0].tittle)
+        expect(commentRepository.comments[0].userId).toEqual(result[0].userId)
+        expect(result[0].createdAt).toBeInstanceOf(Date)
     })
 })
