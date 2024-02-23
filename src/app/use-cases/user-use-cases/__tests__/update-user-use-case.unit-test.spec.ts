@@ -1,6 +1,6 @@
-import { UpdateUserUseCase } from './../update-user.use-case';
+import { UpdateUserUseCase } from '../update-user.use-case';
 import { UserInMemoryRepository } from '../../../../../test/helpers/user-in-memory.repository';
-import { UserEntity } from '../../../../app/entities/user.entity';
+import { UserEntity } from '../../../entities/user.entity';
 
 describe('Update user use case unit tests', () => {
   const repository = new UserInMemoryRepository();

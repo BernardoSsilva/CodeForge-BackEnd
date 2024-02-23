@@ -1,5 +1,5 @@
-import { DeleteUserUseCase } from './../delete-user.use-case';
-import { UserEntity } from '../../../../app/entities/user.entity';
+import { DeleteUserUseCase } from '../delete-user.use-case';
+import { UserEntity } from '../../../entities/user.entity';
 import { UserInMemoryRepository } from '../../../../../test/helpers/user-in-memory.repository';
 
 describe('Delete user use case unit tests', () => {

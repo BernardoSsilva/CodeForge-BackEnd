@@ -1,4 +1,4 @@
-import { UserEntity } from "../../../../app/entities/user.entity"
+import { UserEntity } from "../../../entities/user.entity"
 import { UserInMemoryRepository } from "../../../../../test/helpers/user-in-memory.repository"
 import { FindUserByIdUseCase } from "../find-user-by-id.use-case"
 

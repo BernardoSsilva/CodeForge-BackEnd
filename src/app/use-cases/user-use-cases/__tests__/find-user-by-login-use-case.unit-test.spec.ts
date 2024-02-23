@@ -1,6 +1,6 @@
-import { FindUserByLoginUseCase } from './../find-user-by-login.use-case';
+import { FindUserByLoginUseCase } from '../find-user-by-login.use-case';
 import { UserInMemoryRepository } from '../../../../../test/helpers/user-in-memory.repository';
-import { UserEntity } from '../../../../app/entities/user.entity';
+import { UserEntity } from '../../../entities/user.entity';
 
 describe('Find user by email unit test', () => {
   const repository = new UserInMemoryRepository();
