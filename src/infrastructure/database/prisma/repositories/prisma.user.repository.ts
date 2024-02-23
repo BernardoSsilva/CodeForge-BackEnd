@@ -3,6 +3,7 @@ import { UserRepository } from '../../../../app/repositories/user.repository';
 import { UserEntity } from 'src/app/entities/user.entity';
 import { PrismaService } from '../prisma.service';
 import { UserMapper } from '../mappers/user.mapper';
+import { error } from 'console';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -39,8 +40,15 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
-  updateUser(user: Partial<UserEntity>, userId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async updateUser(user: Partial<UserEntity>, userId: string): Promise<void> {
+    try {
+      await this.prisma.user.update({
+        where: { userId },
+        data: user,
+      });
+    } catch {
+      throw new Error();
+    }
   }
   deleteUser(id: string): Promise<void> {
     throw new Error('Method not implemented.');
