@@ -1,6 +1,6 @@
-import { CommentRepository } from "../../../app/repositories/comment.repository";
+import { CommentRepository } from "../../repositories/comment.repository";
 
-export class FindCommentsByUserIdUseCae{
+export class GetAllCommentsByUserIdUseCae{
     constructor(private commentRepository:CommentRepository){}
 
     async execute(userId:string){

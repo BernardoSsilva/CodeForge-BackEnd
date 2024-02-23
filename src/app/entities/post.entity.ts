@@ -6,7 +6,8 @@ export type PostProps = {
   comments: number;
   likes: number;
   tags: string[];
-  createdAt: Date;
+  createdAt?: Date;
+  userId:string
 };
 
 export class PostEntity extends Entity<PostProps> {
@@ -43,5 +44,13 @@ export class PostEntity extends Entity<PostProps> {
   }
   get createdAt(): Date {
     return this.props.createdAt;
+  }
+
+  get userId():string{
+    return this.props.userId
+  }
+
+  set userId(value:string){
+    this.props.userId = value
   }
 }

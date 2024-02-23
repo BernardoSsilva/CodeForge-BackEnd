@@ -6,10 +6,14 @@ describe('Comment entity unit test', () => {
       tittle: 'test tittle',
       content: 'test content',
       createdAt: new Date(),
+      postId: "testId",
+      userId: "testId"
     });
 
     expect(newComment.tittle).toEqual('test tittle');
     expect(newComment.content).toEqual('test content');
+    expect(newComment.postId).toEqual("testId")
+    expect(newComment.userId).toEqual("testId")
     expect(newComment.createdAt).toBeInstanceOf(Date);
     expect(newComment.id).toBeDefined();
   });

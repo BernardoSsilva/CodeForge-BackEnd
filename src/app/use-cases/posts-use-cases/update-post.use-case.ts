@@ -1,7 +1,7 @@
 import { PostEntity } from "src/app/entities/post.entity";
-import { PostRepository } from "../../../app/repositories/post.repository";
+import { PostRepository } from "../../repositories/post.repository";
 
-export class EditPostUseCase{
+export class UpdatePostUseCase{
     constructor(private postRepository:PostRepository){}
 
     async execute(postData:PostEntity, postId:string){
