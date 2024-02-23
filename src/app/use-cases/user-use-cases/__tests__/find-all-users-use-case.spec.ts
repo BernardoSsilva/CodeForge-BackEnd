@@ -21,4 +21,10 @@ describe('Find all users use case unit tests', () => {
     expect(result).toBeDefined();
     expect(result).toHaveLength(1);
   });
+
+  it('Should throw error if users not founded', () => {
+    userRepository.users.splice(0, 1);
+
+    expect(() => findAllUsers.execute()).rejects.toThrow();
+  });
 });
