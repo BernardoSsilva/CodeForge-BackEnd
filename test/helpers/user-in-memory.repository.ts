@@ -1,6 +1,7 @@
 import { NotFoundError } from '../../src/shared/errors/not-found.error';
 import { UserEntity } from '../../src/app/entities/user.entity';
 import { UserRepository } from '../../src/app/repositories/user.repository';
+import { BadRequestError } from '../../src/shared/errors/bad-request.error';
 
 export class UserInMemoryRepository implements UserRepository {
   public users: UserEntity[] = [];
@@ -18,6 +19,9 @@ export class UserInMemoryRepository implements UserRepository {
     return user;
   }
   async registerUser(user: UserEntity): Promise<void> {
+    if(!user){
+      throw new BadRequestError("user is required")
+    }
     await this.users.push(user);
   }
   async updateUser(user: UserEntity, userId: string): Promise<void> {
