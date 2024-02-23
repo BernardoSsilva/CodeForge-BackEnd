@@ -17,8 +17,13 @@ export class PrismaUserRepository implements UserRepository{
             throw new Error
         }
     }
-    findUserById(id: string): Promise<UserEntity> {
-        throw new Error("Method not implemented.");
+    async findUserById(id: string): Promise<UserEntity> {
+        try{
+            const result = await this.prisma.user.findUnique({where:{userId:id}})
+            return UserMapper.toDomain(result)
+        }catch{
+            throw new Error
+        }
     }
     registerUser(user: UserEntity): Promise<void> {
         throw new Error("Method not implemented.");
