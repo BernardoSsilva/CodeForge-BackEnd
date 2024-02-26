@@ -9,10 +9,14 @@ import { UserRepository } from '../../../../app/repositories/user.repository';
 import { UserMapper } from '../mappers/user.mapper';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
 
   // find all users
   async findAllUsers(): Promise<UserEntity[]> {
@@ -142,25 +146,27 @@ export class PrismaUserRepository implements UserRepository {
 
   // authenticate
 
-  async authenticate(authenticationBody): Promise<Boolean> {
+  async authenticate(authenticationBody): Promise<{ access_token: string }> {
+    console.log(authenticationBody);
+    const userExists = await this.prisma.user.findUnique({
+      where: { userLogin: authenticationBody.userLogin },
+    });
+    if (!userExists) {
+      throw new NotFoundException('User not found');
+    }
 
-      console.log(authenticationBody)
-      const userExists = await this.prisma.user.findUnique({
-        where: { userLogin: authenticationBody.userLogin },
-      });
-      if (!userExists) {
-        throw new NotFoundException('User not found');
-      }
+    const premisedPassword = await bcrypt.compareSync(
+      authenticationBody.userPassword,
+      userExists.userPassword,
+    );
+    if (!premisedPassword) {
+      throw new UnauthorizedException('Unauthorized');
+    }
 
-      const premisedPassword = await bcrypt.compareSync(
-        authenticationBody.userPassword,
-        userExists.userPassword,
-      );
-      if (!premisedPassword) {
-        throw new UnauthorizedException('Unauthorized');
-      }
+    const jwtPayload = { userId: userExists.userId };
 
-      return true;
- 
+    return {
+      access_token: await this.jwtService.signAsync(jwtPayload),
+    };
   }
 }

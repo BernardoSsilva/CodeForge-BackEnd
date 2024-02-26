@@ -5,7 +5,7 @@ import { BadRequestError } from '../../src/shared/errors/bad-request.error';
 import { NotFoundError } from '../../src/shared/errors/not-found.error';
 
 export class UserInMemoryRepository implements UserRepository {
-  authenticate(authenticationInterface: AuthenticationDto): Promise<Boolean> {
+  authenticate(authenticationInterface: AuthenticationDto): Promise<{ access_token: string }> {
     throw new Error('Method not implemented.');
   }
   

@@ -10,5 +10,5 @@ export abstract class UserRepository {
   abstract deleteUser(id: string): Promise<void>;
   abstract getByEmail(email: string): Promise<UserEntity>;
   abstract getByLogin(login: string): Promise<UserEntity>;
-  abstract authenticate(authenticationInterface: AuthenticationDto):Promise<Boolean>
+  abstract authenticate(authenticationInterface: AuthenticationDto):Promise<{ access_token: string }>
 }
