@@ -24,6 +24,8 @@ import { FindAllPostsFromUserUseCase } from 'src/app/use-cases/posts-use-cases/f
 import { FindAllPostsFromUserController } from './controllers/posts/find-all-posts-from-user.controller';
 import { UpdatePostUseCase } from 'src/app/use-cases/posts-use-cases/update-post.use-case';
 import { UpdatePostController } from './controllers/posts/update-post.controller';
+import { DeletePostController } from './controllers/posts/delete-post.controller';
+import { DeletePostUseCase } from 'src/app/use-cases/posts-use-cases/delete-post.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -43,6 +45,7 @@ import { UpdatePostController } from './controllers/posts/update-post.controller
     FindPostByIdController,
     FindAllPostsFromUserController,
     UpdatePostController,
+    DeletePostController,
   ],
   providers: [
     CreateUserUseCase,
@@ -60,6 +63,7 @@ import { UpdatePostController } from './controllers/posts/update-post.controller
     FindPostByIdUseCase,
     FindAllPostsFromUserUseCase,
     UpdatePostUseCase,
+    DeletePostUseCase,
   ],
 
   exports: [HttpModule],
