@@ -1,10 +1,18 @@
-import { CommentEntity } from "../../../app/entities/comment.entity";
-import { CommentRepository } from "../../../app/repositories/comment.repository";
+import { Injectable } from '@nestjs/common';
+import { CommentRepository } from '../../../app/repositories/comment.repository';
 
-export class UpdateCommentUseCase{
-    constructor(private commentRepository:CommentRepository){}
+export interface UpdateCommentInterface {
+  commentTittle?: string;
+  commentContent?: string;
+  commentAuthor?: string;
+  publication?: string;
+}
 
-    async execute(commentEntity:CommentEntity, commentId:string){
-        return await this.commentRepository.updateComment(commentEntity, commentId)
-    }
+@Injectable()
+export class UpdateCommentUseCase {
+  constructor(private commentRepository: CommentRepository) {}
+
+  async execute(commentEntity: UpdateCommentInterface, commentId: string) {
+    return await this.commentRepository.updateComment(commentEntity, commentId);
+  }
 }

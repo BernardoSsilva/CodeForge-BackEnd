@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CommentEntity } from 'src/app/entities/comment.entity';
 import { CommentRepository } from 'src/app/repositories/comment.repository';
-import { PrismaService } from '../prisma.service';
+import { NotFoundError } from 'src/shared/errors/not-found.error';
 import { CommentMapper } from '../mappers/comment.mapper';
-import { error } from 'console';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaCommentRepository implements CommentRepository {
@@ -74,8 +74,16 @@ export class PrismaCommentRepository implements CommentRepository {
   }
 
   // update comment
-  updateComment(comment: CommentEntity, commentId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async updateComment(comment: Partial<CommentEntity>, commentId: string): Promise<void> {
+    try{
+        const commentExists = await this.prisma.comment.findUnique({where:{commentId}})
+        if(!commentExists){
+            throw new NotFoundError("Comment not found")
+        }
+        await this.prisma.comment.update({ where:{commentId}, data:comment})
+    }catch{
+        throw new Error
+    }
   }
 
   // delete comment
