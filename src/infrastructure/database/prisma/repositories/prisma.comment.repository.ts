@@ -74,20 +74,29 @@ export class PrismaCommentRepository implements CommentRepository {
   }
 
   // update comment
-  async updateComment(comment: Partial<CommentEntity>, commentId: string): Promise<void> {
-    try{
-        const commentExists = await this.prisma.comment.findUnique({where:{commentId}})
-        if(!commentExists){
-            throw new NotFoundError("Comment not found")
-        }
-        await this.prisma.comment.update({ where:{commentId}, data:comment})
-    }catch{
-        throw new Error
+  async updateComment(
+    comment: Partial<CommentEntity>,
+    commentId: string,
+  ): Promise<void> {
+    try {
+      const commentExists = await this.prisma.comment.findUnique({
+        where: { commentId },
+      });
+      if (!commentExists) {
+        throw new NotFoundError('Comment not found');
+      }
+      await this.prisma.comment.update({ where: { commentId }, data: comment });
+    } catch {
+      throw new Error();
     }
   }
 
   // delete comment
-  deleteComment(commentId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deleteComment(commentId: string): Promise<void> {
+    try {
+      await this.prisma.comment.delete({ where: { commentId } });
+    } catch {
+      throw new Error();
+    }
   }
 }

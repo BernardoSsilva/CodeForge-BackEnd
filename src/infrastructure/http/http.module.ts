@@ -38,6 +38,8 @@ import { GetAllCommentsByUserIdUseCase } from 'src/app/use-cases/comment-use-cas
 import { GetAllCommentsByUserIdController } from './controllers/comment/get-all-comments-by-user.controller';
 import { UpdateCommentUseCase } from 'src/app/use-cases/comment-use-cases/update-comment.use-case';
 import { UpdateCommentController } from './controllers/comment/update-comment.controller';
+import { DeleteCommentUseCase } from 'src/app/use-cases/comment-use-cases/delete-comment.use-case';
+import { DeleteCommentController } from './controllers/comment/delete-comment.controller';
 
 @Module({
   imports: [DataBaseModule],
@@ -67,6 +69,7 @@ import { UpdateCommentController } from './controllers/comment/update-comment.co
     GetAllCommentsFromPostController,
     GetAllCommentsByUserIdController,
     UpdateCommentController,
+    DeleteCommentController,
   ],
   providers: [
     CreateUserUseCase,
@@ -93,6 +96,7 @@ import { UpdateCommentController } from './controllers/comment/update-comment.co
     GetAllCommentsFromPostUseCase,
     GetAllCommentsByUserIdUseCase,
     UpdateCommentUseCase,
+    DeleteCommentUseCase,
   ],
 
   exports: [HttpModule],
