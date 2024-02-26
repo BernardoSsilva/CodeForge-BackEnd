@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { UserEntity } from '../../../../app/entities/user.entity';
 import { UserRepository } from '../../../../app/repositories/user.repository';
-import { UserEntity } from 'src/app/entities/user.entity';
-import { PrismaService } from '../prisma.service';
 import { UserMapper } from '../mappers/user.mapper';
-import { error } from 'console';
+import { PrismaService } from '../prisma.service';
+import { BadRequestError } from 'src/shared/errors/bad-request.error';
+import { NotFoundError } from 'src/shared/errors/not-found.error';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -11,6 +12,7 @@ export class PrismaUserRepository implements UserRepository {
   async findAllUsers(): Promise<UserEntity[]> {
     try {
       const result = await this.prisma.user.findMany();
+      console.log(result);
       return result.map((user) => UserMapper.toDomain(user));
     } catch {
       throw new Error();
@@ -21,6 +23,9 @@ export class PrismaUserRepository implements UserRepository {
       const result = await this.prisma.user.findUnique({
         where: { userId: id },
       });
+      if (!result) {
+        throw new NotFoundError('user not found');
+      }
       return UserMapper.toDomain(result);
     } catch {
       throw new Error();
@@ -28,12 +33,29 @@ export class PrismaUserRepository implements UserRepository {
   }
   async registerUser(user: UserEntity): Promise<void> {
     try {
+      console.log(user);
+      const userExists = await this.prisma.user.findMany({
+        where: {
+          OR: [
+            {
+              userEmail: user.props.userEmail,
+            },
+            {
+              userLogin: user.props.userLogin,
+            },
+          ],
+        },
+      });
+      if (userExists.length > 0) {
+        throw new BadRequestError('data conflict error');
+      }
       await this.prisma.user.create({
         data: {
-          userEmail: user.userEmail,
-          userLogin: user.userLogin,
-          userName: user.userName,
-          userPassword: user.userPassword,
+          userId: user.id,
+          userEmail: user.props.userEmail,
+          userLogin: user.props.userLogin,
+          userName: user.props.userName,
+          userPassword: user.props.userPassword,
         },
       });
     } catch {
@@ -59,22 +81,22 @@ export class PrismaUserRepository implements UserRepository {
   }
   async getByEmail(email: string): Promise<UserEntity> {
     try {
-        const result = await this.prisma.user.findUnique({
-          where: { userEmail: email },
-        });
-        return UserMapper.toDomain(result);
-      } catch {
-        throw new Error();
-      }
+      const result = await this.prisma.user.findUnique({
+        where: { userEmail: email },
+      });
+      return UserMapper.toDomain(result);
+    } catch {
+      throw new Error();
+    }
   }
   async getByLogin(login: string): Promise<UserEntity> {
     try {
-        const result = await this.prisma.user.findUnique({
-          where: { userLogin: login },
-        });
-        return UserMapper.toDomain(result);
-      } catch {
-        throw new Error();
-      }
+      const result = await this.prisma.user.findUnique({
+        where: { userLogin: login },
+      });
+      return UserMapper.toDomain(result);
+    } catch {
+      throw new Error();
     }
+  }
 }

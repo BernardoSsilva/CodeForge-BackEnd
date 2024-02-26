@@ -1,4 +1,4 @@
-import { error } from 'console';
+
 import { Entity } from '../../shared/entities/entity';
 
 export type UserProps = {
@@ -6,7 +6,7 @@ export type UserProps = {
   userEmail: string;
   userLogin: string;
   userPassword: string;
-  createdAt: Date;
+  createdAt?: Date;
 };
 
 export class UserEntity extends Entity<UserProps> {
@@ -38,7 +38,10 @@ export class UserEntity extends Entity<UserProps> {
     this.props.userPassword = value;
   }
 
-  validate()
+  constructor(props){
+    super(props);
+    this.validate()
+  }
 
 
   async validate():Promise<string[]>{

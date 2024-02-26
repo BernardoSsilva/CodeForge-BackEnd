@@ -1,5 +1,7 @@
+import { Injectable } from "@nestjs/common";
 import { UserRepository } from "../../repositories/user.repository";
 
+@Injectable()
 export class FindUserByIdUseCase{
     constructor(private userRepository:UserRepository){}
 
