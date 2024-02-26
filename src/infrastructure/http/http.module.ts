@@ -6,6 +6,8 @@ import { DataBaseModule } from '../database/database.module';
 import { CreateUserController } from './controllers/user/create.user.controller';
 import { FindAllUsersController } from './controllers/user/find-all.users.controller';
 import { FindUserByIdController } from './controllers/user/find-user-by-id.controller';
+import { FindUserByEmailController } from './controllers/user/find-user-by-email.controller';
+import { FindUserByEmailUseCase } from 'src/app/use-cases/user-use-cases/find-user-by-email.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -13,8 +15,14 @@ import { FindUserByIdController } from './controllers/user/find-user-by-id.contr
     CreateUserController,
     FindAllUsersController,
     FindUserByIdController,
+    FindUserByEmailController,
   ],
-  providers: [CreateUserUseCase, FindAllUsersUseCase, FindUserByIdUseCase],
+  providers: [
+    CreateUserUseCase,
+    FindAllUsersUseCase,
+    FindUserByIdUseCase,
+    FindUserByEmailUseCase,
+  ],
   exports: [HttpModule],
 })
 export class HttpModule {}
