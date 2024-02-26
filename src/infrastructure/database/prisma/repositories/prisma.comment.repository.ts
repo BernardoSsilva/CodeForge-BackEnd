@@ -3,6 +3,7 @@ import { CommentEntity } from 'src/app/entities/comment.entity';
 import { CommentRepository } from 'src/app/repositories/comment.repository';
 import { PrismaService } from '../prisma.service';
 import { CommentMapper } from '../mappers/comment.mapper';
+import { error } from 'console';
 
 @Injectable()
 export class PrismaCommentRepository implements CommentRepository {
@@ -60,8 +61,16 @@ export class PrismaCommentRepository implements CommentRepository {
   }
 
   // get all comments from a user
-  getAllCommentsByUserId(userId: string): Promise<CommentEntity[]> {
-    throw new Error('Method not implemented.');
+  async getAllCommentsByUserId(userId: string): Promise<CommentEntity[]> {
+    try {
+      const result = await this.prisma.comment.findMany({
+        where: { commentAuthor: userId },
+      });
+
+      return result.map((comment) => CommentMapper.toDomain(comment));
+    } catch {
+      throw new Error();
+    }
   }
 
   // update comment
