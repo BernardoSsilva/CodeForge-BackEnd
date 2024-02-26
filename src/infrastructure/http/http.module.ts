@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Delete, Module } from '@nestjs/common';
 import { CreateUserUseCase } from 'src/app/use-cases/user-use-cases/create-user.use-case';
 import { FindAllUsersUseCase } from 'src/app/use-cases/user-use-cases/find-all-users.use-case';
 import { FindUserByIdUseCase } from 'src/app/use-cases/user-use-cases/find-user-by-id.use-case';
@@ -10,6 +10,8 @@ import { FindUserByEmailController } from './controllers/user/find-user-by-email
 import { FindUserByEmailUseCase } from 'src/app/use-cases/user-use-cases/find-user-by-email.use-case';
 import { FindUserByLoginController } from './controllers/user/find-user-by-login.controller';
 import { FindUserByLoginUseCase } from 'src/app/use-cases/user-use-cases/find-user-by-login.use-case';
+import { DeleteUserController } from './controllers/user/delete-user.controller';
+import { DeleteUserUseCase } from 'src/app/use-cases/user-use-cases/delete-user.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -19,6 +21,7 @@ import { FindUserByLoginUseCase } from 'src/app/use-cases/user-use-cases/find-us
     FindUserByIdController,
     FindUserByEmailController,
     FindUserByLoginController,
+    DeleteUserController,
   ],
   providers: [
     CreateUserUseCase,
@@ -26,6 +29,7 @@ import { FindUserByLoginUseCase } from 'src/app/use-cases/user-use-cases/find-us
     FindUserByIdUseCase,
     FindUserByEmailUseCase,
     FindUserByLoginUseCase,
+    DeleteUserUseCase,
   ],
   exports: [HttpModule],
 })

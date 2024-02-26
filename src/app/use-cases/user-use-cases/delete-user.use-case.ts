@@ -1,9 +1,11 @@
-import { UserRepository } from "../../../app/repositories/user.repository";
+import { Injectable } from '@nestjs/common';
+import { UserRepository } from '../../../app/repositories/user.repository';
 
-export class DeleteUserUseCase{
-    constructor(private userRepository:UserRepository){}
+@Injectable()
+export class DeleteUserUseCase {
+  constructor(private userRepository: UserRepository) {}
 
-    async execute(userId:string){
-        return await this.userRepository.deleteUser(userId)
-    }
+  async execute(userId: string) {
+    return await this.userRepository.deleteUser(userId);
+  }
 }
