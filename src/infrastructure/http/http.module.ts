@@ -1,14 +1,20 @@
 import { Module } from '@nestjs/common';
+import { CreateUserUseCase } from 'src/app/use-cases/user-use-cases/create-user.use-case';
+import { FindAllUsersUseCase } from 'src/app/use-cases/user-use-cases/find-all-users.use-case';
+import { FindUserByIdUseCase } from 'src/app/use-cases/user-use-cases/find-user-by-id.use-case';
 import { DataBaseModule } from '../database/database.module';
 import { CreateUserController } from './controllers/user/create.user.controller';
-import { CreateUserUseCase } from 'src/app/use-cases/user-use-cases/create-user.use-case';
 import { FindAllUsersController } from './controllers/user/find-all.users.controller';
-import { FindAllUsersUseCase } from 'src/app/use-cases/user-use-cases/find-all-users.use-case';
+import { FindUserByIdController } from './controllers/user/find-user-by-id.controller';
 
 @Module({
   imports: [DataBaseModule],
-  controllers: [CreateUserController, FindAllUsersController],
-  providers: [CreateUserUseCase, FindAllUsersUseCase],
+  controllers: [
+    CreateUserController,
+    FindAllUsersController,
+    FindUserByIdController,
+  ],
+  providers: [CreateUserUseCase, FindAllUsersUseCase, FindUserByIdUseCase],
   exports: [HttpModule],
 })
 export class HttpModule {}

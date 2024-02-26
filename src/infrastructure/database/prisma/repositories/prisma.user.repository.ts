@@ -4,6 +4,7 @@ import { UserRepository } from '../../../../app/repositories/user.repository';
 import { UserMapper } from '../mappers/user.mapper';
 import { PrismaService } from '../prisma.service';
 import { BadRequestError } from 'src/shared/errors/bad-request.error';
+import { NotFoundError } from 'src/shared/errors/not-found.error';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -11,6 +12,7 @@ export class PrismaUserRepository implements UserRepository {
   async findAllUsers(): Promise<UserEntity[]> {
     try {
       const result = await this.prisma.user.findMany();
+      console.log(result);
       return result.map((user) => UserMapper.toDomain(user));
     } catch {
       throw new Error();
@@ -21,6 +23,9 @@ export class PrismaUserRepository implements UserRepository {
       const result = await this.prisma.user.findUnique({
         where: { userId: id },
       });
+      if (!result) {
+        throw new NotFoundError('user not found');
+      }
       return UserMapper.toDomain(result);
     } catch {
       throw new Error();
