@@ -3,7 +3,7 @@ import { Entity } from '../../shared/entities/entity';
 export type CommentProps = {
   commentTittle: string;
   commentContent: string;
-  createdAt: Date;
+  createdAt?: Date;
   commentAuthor: string;
   publication: string;
 };

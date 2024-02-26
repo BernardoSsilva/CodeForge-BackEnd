@@ -26,6 +26,8 @@ import { UpdatePostUseCase } from 'src/app/use-cases/posts-use-cases/update-post
 import { UpdatePostController } from './controllers/posts/update-post.controller';
 import { DeletePostController } from './controllers/posts/delete-post.controller';
 import { DeletePostUseCase } from 'src/app/use-cases/posts-use-cases/delete-post.use-case';
+import { CreateCommentUseCase } from 'src/app/use-cases/comment-use-cases/create-comment.use-case';
+import { PostCommentController } from './controllers/comment/post-comment.controller';
 
 @Module({
   imports: [DataBaseModule],
@@ -46,6 +48,10 @@ import { DeletePostUseCase } from 'src/app/use-cases/posts-use-cases/delete-post
     FindAllPostsFromUserController,
     UpdatePostController,
     DeletePostController,
+
+    // comments
+
+    PostCommentController,
   ],
   providers: [
     CreateUserUseCase,
@@ -64,6 +70,9 @@ import { DeletePostUseCase } from 'src/app/use-cases/posts-use-cases/delete-post
     FindAllPostsFromUserUseCase,
     UpdatePostUseCase,
     DeletePostUseCase,
+
+    //comments
+    CreateCommentUseCase,
   ],
 
   exports: [HttpModule],
