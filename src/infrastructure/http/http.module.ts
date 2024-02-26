@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CreateCommentUseCase } from 'src/app/use-cases/comment-use-cases/create-comment.use-case';
+import { GetAllCommentsFromPostUseCase } from 'src/app/use-cases/comment-use-cases/get-all-comments-from-post.use-case';
 import { GetAllCommentsUseCase } from 'src/app/use-cases/comment-use-cases/get-all-comments.use-case';
+import { GetCommentByIdUseCase } from 'src/app/use-cases/comment-use-cases/get-comment-by-id.use-case';
 import { CreatePostUseCase } from 'src/app/use-cases/posts-use-cases/create-post.use-case';
 import { DeletePostUseCase } from 'src/app/use-cases/posts-use-cases/delete-post.use-case';
 import { FindAllPostsFromUserUseCase } from 'src/app/use-cases/posts-use-cases/find-all-posts-from-user.use-case';
@@ -15,7 +17,9 @@ import { FindUserByIdUseCase } from 'src/app/use-cases/user-use-cases/find-user-
 import { FindUserByLoginUseCase } from 'src/app/use-cases/user-use-cases/find-user-by-login.use-case';
 import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.use-case';
 import { DataBaseModule } from '../database/database.module';
+import { GetAllCommentsFromPostController } from './controllers/comment/get-all-comments-from-post.controller';
 import { GetAllCommentsController } from './controllers/comment/get-all-comments.controller';
+import { GetCommentByIdController } from './controllers/comment/get-comment-by-id.controller';
 import { PostCommentController } from './controllers/comment/post-comment.controller';
 import { CreatePostController } from './controllers/posts/create-post.controller';
 import { DeletePostController } from './controllers/posts/delete-post.controller';
@@ -30,8 +34,6 @@ import { FindUserByEmailController } from './controllers/user/find-user-by-email
 import { FindUserByIdController } from './controllers/user/find-user-by-id.controller';
 import { FindUserByLoginController } from './controllers/user/find-user-by-login.controller';
 import { UpdateUserController } from './controllers/user/update-user.controller';
-import { GetCommentByIdController } from './controllers/comment/get-comment-by-id.controller';
-import { GetCommentByIdUseCase } from 'src/app/use-cases/comment-use-cases/get-comment-by-id.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -58,6 +60,7 @@ import { GetCommentByIdUseCase } from 'src/app/use-cases/comment-use-cases/get-c
     PostCommentController,
     GetAllCommentsController,
     GetCommentByIdController,
+    GetAllCommentsFromPostController,
   ],
   providers: [
     CreateUserUseCase,
@@ -81,6 +84,7 @@ import { GetCommentByIdUseCase } from 'src/app/use-cases/comment-use-cases/get-c
     CreateCommentUseCase,
     GetAllCommentsUseCase,
     GetCommentByIdUseCase,
+    GetAllCommentsFromPostUseCase
   ],
 
   exports: [HttpModule],

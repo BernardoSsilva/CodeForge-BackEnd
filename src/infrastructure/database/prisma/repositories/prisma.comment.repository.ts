@@ -47,8 +47,16 @@ export class PrismaCommentRepository implements CommentRepository {
   }
 
   // get all comments from post
-  getAllCommentsByPostId(postId: string): Promise<CommentEntity[]> {
-    throw new Error('Method not implemented.');
+  async getAllCommentsByPostId(postId: string): Promise<CommentEntity[]> {
+    try {
+      const result = await this.prisma.comment.findMany({
+        where: { publication: postId },
+      });
+
+      return result.map((comment) => CommentMapper.toDomain(comment));
+    } catch {
+      throw new Error();
+    }
   }
 
   // get all comments from a user
