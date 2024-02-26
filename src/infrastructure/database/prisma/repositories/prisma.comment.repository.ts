@@ -24,27 +24,45 @@ export class PrismaCommentRepository implements CommentRepository {
   // get all comments
   async getAllComments(): Promise<CommentEntity[]> {
     try {
-      const result = await this.prisma.comment.findMany()
+      const result = await this.prisma.comment.findMany();
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
       throw new Error();
     }
   }
 
-  deleteComment(commentId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  // get comment by id
+  async getCommentById(commentId: string): Promise<CommentEntity> {
+    try {
+      const result = await this.prisma.comment.findUnique({
+        where: {
+          commentId,
+        },
+      });
+      console.log(result);
+      return CommentMapper.toDomain(result);
+    } catch {
+      throw new Error();
+    }
   }
 
-  getCommentById(commentId: string): Promise<CommentEntity> {
-    throw new Error('Method not implemented.');
-  }
+  // get all comments from post
   getAllCommentsByPostId(postId: string): Promise<CommentEntity[]> {
     throw new Error('Method not implemented.');
   }
+
+  // get all comments from a user
   getAllCommentsByUserId(userId: string): Promise<CommentEntity[]> {
     throw new Error('Method not implemented.');
   }
+
+  // update comment
   updateComment(comment: CommentEntity, commentId: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
+  // delete comment
+  deleteComment(commentId: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

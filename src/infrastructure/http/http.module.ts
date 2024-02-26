@@ -30,6 +30,8 @@ import { FindUserByEmailController } from './controllers/user/find-user-by-email
 import { FindUserByIdController } from './controllers/user/find-user-by-id.controller';
 import { FindUserByLoginController } from './controllers/user/find-user-by-login.controller';
 import { UpdateUserController } from './controllers/user/update-user.controller';
+import { GetCommentByIdController } from './controllers/comment/get-comment-by-id.controller';
+import { GetCommentByIdUseCase } from 'src/app/use-cases/comment-use-cases/get-comment-by-id.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -55,6 +57,7 @@ import { UpdateUserController } from './controllers/user/update-user.controller'
 
     PostCommentController,
     GetAllCommentsController,
+    GetCommentByIdController,
   ],
   providers: [
     CreateUserUseCase,
@@ -77,6 +80,7 @@ import { UpdateUserController } from './controllers/user/update-user.controller'
     //comments
     CreateCommentUseCase,
     GetAllCommentsUseCase,
+    GetCommentByIdUseCase,
   ],
 
   exports: [HttpModule],
