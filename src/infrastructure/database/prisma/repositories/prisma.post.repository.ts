@@ -37,8 +37,20 @@ export class PrismaPostRepository implements PostRepository {
       throw new Error();
     }
   }
-  getPostById(id: string): Promise<PostEntity> {
-    throw new Error('Method not implemented.');
+
+  // get post by id
+  async getPostById(id: string): Promise<PostEntity> {
+    try {
+      const result = await this.prisma.post.findUnique({
+        where: {
+          postId: id,
+        },
+      });
+      
+      return PostMapper.toDomain(result)
+    } catch {
+        throw new Error
+    }
   }
   getAllPostsByUser(userId: string): Promise<PostEntity[]> {
     throw new Error('Method not implemented.');
