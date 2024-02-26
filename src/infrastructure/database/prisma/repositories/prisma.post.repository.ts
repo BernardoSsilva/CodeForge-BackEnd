@@ -1,7 +1,7 @@
 import { PostEntity } from 'src/app/entities/post.entity';
 import { PostRepository } from 'src/app/repositories/post.repository';
 import { PrismaService } from '../prisma.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { error } from 'console';
 import { PostMapper } from '../mappers/post.mapper';
 
@@ -12,7 +12,14 @@ export class PrismaPostRepository implements PostRepository {
   // create post
   async createPost(post: PostEntity): Promise<void> {
     try {
-      console.log(post);
+      const { userId } = post.props;
+
+      const userExists = await this.prisma.user.findUnique({
+        where: { userId },
+      });
+      if (!userExists) {
+        throw new NotFoundException('user not found');
+      }
       await this.prisma.post.create({
         data: {
           postContent: post.props.postContent,
@@ -31,6 +38,9 @@ export class PrismaPostRepository implements PostRepository {
   async getAllPosts(): Promise<PostEntity[]> {
     try {
       const result = await this.prisma.post.findMany();
+      if (result.length == 0) {
+        throw new NotFoundException('posts not found');
+      }
 
       return result.map((post) => PostMapper.toDomain(post));
     } catch {
@@ -47,6 +57,10 @@ export class PrismaPostRepository implements PostRepository {
         },
       });
 
+      if (!result) {
+        throw new NotFoundException('posts not found');
+      }
+
       return PostMapper.toDomain(result);
     } catch {
       throw new Error();
@@ -61,6 +75,9 @@ export class PrismaPostRepository implements PostRepository {
           userId,
         },
       });
+      if (result.length == 0) {
+        throw new NotFoundException('posts not found');
+      }
 
       return result.map((post) => PostMapper.toDomain(post));
     } catch {
@@ -71,6 +88,12 @@ export class PrismaPostRepository implements PostRepository {
   // update post
   async updatePost(post: Partial<PostEntity>, postId: string): Promise<void> {
     try {
+      const postExists = await this.prisma.post.findUnique({
+        where: { postId },
+      });
+      if (!postExists) {
+        throw new NotFoundException('Post not found');
+      }
       await this.prisma.post.update({ where: { postId }, data: post });
     } catch {
       throw new Error();
@@ -80,6 +103,12 @@ export class PrismaPostRepository implements PostRepository {
   // delete a post
   async deletePost(id: string): Promise<void> {
     try {
+      const postExists = await this.prisma.post.findUnique({
+        where: { postId: id },
+      });
+      if (!postExists) {
+        throw new NotFoundException('Post not found');
+      }
       await this.prisma.post.delete({ where: { postId: id } });
     } catch {
       throw new Error();

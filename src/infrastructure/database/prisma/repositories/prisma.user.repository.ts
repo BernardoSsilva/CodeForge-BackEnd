@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from '../../../../app/entities/user.entity';
 import { UserRepository } from '../../../../app/repositories/user.repository';
 import { UserMapper } from '../mappers/user.mapper';
@@ -14,7 +14,9 @@ export class PrismaUserRepository implements UserRepository {
   async findAllUsers(): Promise<UserEntity[]> {
     try {
       const result = await this.prisma.user.findMany();
-      console.log(result);
+      if (result.length == 0) {
+        throw new BadRequestError('users not found');
+      }
       return result.map((user) => UserMapper.toDomain(user));
     } catch {
       throw new Error();
@@ -28,7 +30,7 @@ export class PrismaUserRepository implements UserRepository {
         where: { userId: id },
       });
       if (!result) {
-        throw new NotFoundError('user not found');
+        throw new BadRequestError('users not found');
       }
       return UserMapper.toDomain(result);
     } catch {
@@ -72,6 +74,12 @@ export class PrismaUserRepository implements UserRepository {
   // update user
   async updateUser(user: Partial<UserEntity>, userId: string): Promise<void> {
     try {
+      const userExists = await this.prisma.user.findUnique({
+        where: { userId },
+      });
+      if (!userExists) {
+        throw new BadRequestError('user not found');
+      }
       await this.prisma.user.update({
         where: { userId },
         data: user,
@@ -84,6 +92,12 @@ export class PrismaUserRepository implements UserRepository {
   // delete user
   async deleteUser(id: string): Promise<void> {
     try {
+      const userExists = await this.prisma.user.findUnique({
+        where: { userId: id },
+      });
+      if (!userExists) {
+        throw new BadRequestError('User not found');
+      }
       await this.prisma.user.delete({ where: { userId: id } });
     } catch {
       throw new Error();
@@ -96,6 +110,10 @@ export class PrismaUserRepository implements UserRepository {
       const result = await this.prisma.user.findUnique({
         where: { userEmail: email },
       });
+
+      if (!result) {
+        throw new NotFoundException('user not found');
+      }
       return UserMapper.toDomain(result);
     } catch {
       throw new Error();
@@ -108,6 +126,10 @@ export class PrismaUserRepository implements UserRepository {
       const result = await this.prisma.user.findUnique({
         where: { userLogin: login },
       });
+
+      if (!result) {
+        throw new NotFoundException('user not found');
+      }
       return UserMapper.toDomain(result);
     } catch {
       throw new Error();

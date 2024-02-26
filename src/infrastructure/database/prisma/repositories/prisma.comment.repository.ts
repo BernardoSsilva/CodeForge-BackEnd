@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CommentEntity } from 'src/app/entities/comment.entity';
 import { CommentRepository } from 'src/app/repositories/comment.repository';
-import { NotFoundError } from 'src/shared/errors/not-found.error';
 import { CommentMapper } from '../mappers/comment.mapper';
 import { PrismaService } from '../prisma.service';
 
@@ -14,6 +13,22 @@ export class PrismaCommentRepository implements CommentRepository {
     try {
       const { commentAuthor, commentContent, commentTittle, publication } =
         comment;
+
+      const userExists = await this.prisma.user.findUnique({
+        where: { userId: commentAuthor },
+      });
+      const publicationExists = await this.prisma.post.findUnique({
+        where: { postId: publication },
+      });
+
+      if (!userExists) {
+        throw new NotFoundException('User not found');
+      }
+
+      if (!publicationExists) {
+        throw new NotFoundException('Publication not found');
+      }
+
       await this.prisma.comment.create({
         data: { commentAuthor, commentContent, commentTittle, publication },
       });
@@ -26,6 +41,11 @@ export class PrismaCommentRepository implements CommentRepository {
   async getAllComments(): Promise<CommentEntity[]> {
     try {
       const result = await this.prisma.comment.findMany();
+
+      if (result.length == 0) {
+        throw new NotFoundException('comments not found');
+      }
+
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
       throw new Error();
@@ -40,7 +60,11 @@ export class PrismaCommentRepository implements CommentRepository {
           commentId,
         },
       });
-      console.log(result);
+
+      if (!result) {
+        throw new NotFoundException('Comment not found');
+      }
+
       return CommentMapper.toDomain(result);
     } catch {
       throw new Error();
@@ -54,6 +78,10 @@ export class PrismaCommentRepository implements CommentRepository {
         where: { publication: postId },
       });
 
+      if (result.length == 0) {
+        throw new NotFoundException('comments not found');
+      }
+
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
       throw new Error();
@@ -66,6 +94,10 @@ export class PrismaCommentRepository implements CommentRepository {
       const result = await this.prisma.comment.findMany({
         where: { commentAuthor: userId },
       });
+
+      if (result.length == 0) {
+        throw new NotFoundException('comments not found');
+      }
 
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
@@ -83,7 +115,7 @@ export class PrismaCommentRepository implements CommentRepository {
         where: { commentId },
       });
       if (!commentExists) {
-        throw new NotFoundError('Comment not found');
+        throw new NotFoundException('Comment not found');
       }
       await this.prisma.comment.update({ where: { commentId }, data: comment });
     } catch {
@@ -94,6 +126,13 @@ export class PrismaCommentRepository implements CommentRepository {
   // delete comment
   async deleteComment(commentId: string): Promise<void> {
     try {
+      const commentExists = await this.prisma.comment.findUnique({
+        where: { commentId },
+      });
+      if (!commentExists) {
+        throw new NotFoundException('Comment not found');
+      }
+
       await this.prisma.comment.delete({ where: { commentId } });
     } catch {
       throw new Error();
