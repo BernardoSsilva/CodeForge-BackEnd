@@ -9,6 +9,8 @@ import { NotFoundError } from 'src/shared/errors/not-found.error';
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
   constructor(private prisma: PrismaService) {}
+
+  // find all users
   async findAllUsers(): Promise<UserEntity[]> {
     try {
       const result = await this.prisma.user.findMany();
@@ -18,6 +20,8 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
+
+  //find user by id
   async findUserById(id: string): Promise<UserEntity> {
     try {
       const result = await this.prisma.user.findUnique({
@@ -31,6 +35,8 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
+
+  // register user
   async registerUser(user: UserEntity): Promise<void> {
     try {
       console.log(user);
@@ -62,6 +68,8 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
+
+  // update user
   async updateUser(user: Partial<UserEntity>, userId: string): Promise<void> {
     try {
       await this.prisma.user.update({
@@ -72,6 +80,8 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
+
+  // delete user
   async deleteUser(id: string): Promise<void> {
     try {
       await this.prisma.user.delete({ where: { userId: id } });
@@ -79,6 +89,8 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
+
+  // get user by email
   async getByEmail(email: string): Promise<UserEntity> {
     try {
       const result = await this.prisma.user.findUnique({
@@ -89,6 +101,8 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error();
     }
   }
+
+  // get user by login
   async getByLogin(login: string): Promise<UserEntity> {
     try {
       const result = await this.prisma.user.findUnique({

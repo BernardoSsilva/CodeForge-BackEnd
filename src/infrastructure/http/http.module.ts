@@ -14,6 +14,18 @@ import { DeleteUserController } from './controllers/user/delete-user.controller'
 import { DeleteUserUseCase } from 'src/app/use-cases/user-use-cases/delete-user.use-case';
 import { UpdateUserController } from './controllers/user/update-user.controller';
 import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.use-case';
+import { CreatePostController } from './controllers/posts/create-post.controller';
+import { CreatePostUseCase } from 'src/app/use-cases/posts-use-cases/create-post.use-case';
+import { FIndAllPostsController } from './controllers/posts/find-all-posts.controller';
+import { FindAllPostsUseCase } from 'src/app/use-cases/posts-use-cases/find-all-posts.use-case';
+import { FindPostByIdController } from './controllers/posts/find-post-by-id.controller';
+import { FindPostByIdUseCase } from 'src/app/use-cases/posts-use-cases/find-post-by-id.use-case';
+import { FindAllPostsFromUserUseCase } from 'src/app/use-cases/posts-use-cases/find-all-posts-from-user.use-case';
+import { FindAllPostsFromUserController } from './controllers/posts/find-all-posts-from-user.controller';
+import { UpdatePostUseCase } from 'src/app/use-cases/posts-use-cases/update-post.use-case';
+import { UpdatePostController } from './controllers/posts/update-post.controller';
+import { DeletePostController } from './controllers/posts/delete-post.controller';
+import { DeletePostUseCase } from 'src/app/use-cases/posts-use-cases/delete-post.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -25,6 +37,15 @@ import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.
     FindUserByLoginController,
     DeleteUserController,
     UpdateUserController,
+
+    // posts
+
+    CreatePostController,
+    FIndAllPostsController,
+    FindPostByIdController,
+    FindAllPostsFromUserController,
+    UpdatePostController,
+    DeletePostController,
   ],
   providers: [
     CreateUserUseCase,
@@ -34,6 +55,15 @@ import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.
     FindUserByLoginUseCase,
     DeleteUserUseCase,
     UpdateUserUseCase,
+
+    //posts
+
+    CreatePostUseCase,
+    FindAllPostsUseCase,
+    FindPostByIdUseCase,
+    FindAllPostsFromUserUseCase,
+    UpdatePostUseCase,
+    DeletePostUseCase,
   ],
 
   exports: [HttpModule],
