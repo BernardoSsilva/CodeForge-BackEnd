@@ -14,6 +14,8 @@ import { DeleteUserController } from './controllers/user/delete-user.controller'
 import { DeleteUserUseCase } from 'src/app/use-cases/user-use-cases/delete-user.use-case';
 import { UpdateUserController } from './controllers/user/update-user.controller';
 import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.use-case';
+import { CreatePostController } from './controllers/posts/create-post.controller';
+import { CreatePostUseCase } from 'src/app/use-cases/posts-use-cases/create-post.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -25,6 +27,10 @@ import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.
     FindUserByLoginController,
     DeleteUserController,
     UpdateUserController,
+
+    // posts
+
+    CreatePostController,
   ],
   providers: [
     CreateUserUseCase,
@@ -34,6 +40,10 @@ import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.
     FindUserByLoginUseCase,
     DeleteUserUseCase,
     UpdateUserUseCase,
+
+    //posts
+
+    CreatePostUseCase,
   ],
 
   exports: [HttpModule],

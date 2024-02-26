@@ -1,10 +1,23 @@
-import { PostEntity } from "../../../app/entities/post.entity";
-import { PostRepository } from "../../../app/repositories/post.repository";
+import { Injectable } from '@nestjs/common';
+import { PostEntity } from '../../../app/entities/post.entity';
+import { PostRepository } from '../../../app/repositories/post.repository';
 
-export class CreatePostUseCase{
-    constructor(private postRepository:PostRepository){}
+export interface CreatePostInterface {
+  tittle: string;
+  content: string;
+  comments: number;
+  likes: number;
+  tags: string[];
+  userId: string;
+}
 
-    async execute(post:PostEntity){
-        return await this.postRepository.createPost(post)
-    }
+@Injectable()
+export class CreatePostUseCase {
+  constructor(private postRepository: PostRepository) {}
+
+  async execute(post: CreatePostInterface) {
+
+    const createPost = new PostEntity(post)
+    return await this.postRepository.createPost(createPost);
+  }
 }
