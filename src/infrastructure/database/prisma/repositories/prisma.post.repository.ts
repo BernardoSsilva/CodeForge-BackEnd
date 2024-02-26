@@ -52,6 +52,8 @@ export class PrismaPostRepository implements PostRepository {
       throw new Error();
     }
   }
+
+  // get all posts from a user
   async getAllPostsByUser(userId: string): Promise<PostEntity[]> {
     try {
       const result = await this.prisma.post.findMany({
@@ -65,9 +67,17 @@ export class PrismaPostRepository implements PostRepository {
       throw new Error();
     }
   }
-  updatePost(post: PostEntity, postId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  // update post
+  async updatePost(post: Partial<PostEntity>, postId: string): Promise<void> {
+    try {
+      await this.prisma.post.update({ where: { postId }, data: post });
+    } catch {
+      throw new Error();
+    }
   }
+
+  // delete a post
   deletePost(id: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
