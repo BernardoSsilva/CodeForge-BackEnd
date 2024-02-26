@@ -1,9 +1,11 @@
-import { PostRepository } from "../../repositories/post.repository";
+import { Injectable } from '@nestjs/common';
+import { PostRepository } from '../../repositories/post.repository';
 
-export class FindPostByIdUseCase{
-    constructor(private postRepository:PostRepository){}
+@Injectable()
+export class FindPostByIdUseCase {
+  constructor(private postRepository: PostRepository) {}
 
-    async execute(postId:string){
-        return await this.postRepository.getPostById(postId)
-    }
+  async execute(postId: string) {
+    return await this.postRepository.getPostById(postId);
+  }
 }

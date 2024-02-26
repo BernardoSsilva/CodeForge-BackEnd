@@ -1,56 +1,49 @@
 import { Entity } from '../../shared/entities/entity';
 
 export type PostProps = {
-  tittle: string;
-  content: string;
-  comments: number;
-  likes: number;
-  tags: string[];
+  postTittle: string;
+  postContent: string;
+  postLikes: number;
+  postTags: string[];
   createdAt?: Date;
-  userId:string
+  userId: string;
 };
 
 export class PostEntity extends Entity<PostProps> {
-  set tittle(value: string) {
-    this.props.tittle = value;
+  set postTittle(value: string) {
+    this.props.postTittle = value;
   }
-  get tittle(): string {
-    return this.props.tittle;
+  get postTittle(): string {
+    return this.props.postTittle;
   }
 
-  set content(value: string) {
-    this.props.content = value;
+  set postContent(value: string) {
+    this.props.postContent = value;
   }
-  get content(): string {
-    return this.props.content;
+  get postContent(): string {
+    return this.props.postContent;
   }
-  set comments(value: number) {
-    this.props.comments = value;
+  set postLikes(value: number) {
+    this.props.postLikes = value;
   }
-  get comments(): number {
-    return this.props.comments;
+  get postLikes(): number {
+    return this.props.postLikes;
   }
-  set likes(value: number) {
-    this.props.likes = value;
+  set postTags(value: string[]) {
+    this.props.postTags = value;
   }
-  get likes(): number {
-    return this.props.likes;
-  }
-  set tags(value: string[]) {
-    this.props.tags = value;
-  }
-  get tags(): string[] {
-    return this.props.tags;
+  get postTags(): string[] {
+    return this.props.postTags;
   }
   get createdAt(): Date {
     return this.props.createdAt;
   }
 
-  get userId():string{
-    return this.props.userId
+  get userId(): string {
+    return this.props.userId;
   }
 
-  set userId(value:string){
-    this.props.userId = value
+  set userId(value: string) {
+    this.props.userId = value;
   }
 }

@@ -1,10 +1,11 @@
-import { UserRepository } from "../../repositories/user.repository";
+import { Injectable } from '@nestjs/common';
+import { UserRepository } from '../../repositories/user.repository';
 
+@Injectable()
+export class FindAllUsersUseCase {
+  constructor(private userRepository: UserRepository) {}
 
-export class FindAllUsersUseCase{
-    constructor(private userRepository:UserRepository){}
-
-    async execute(){
-        return await this.userRepository.findAllUsers();
-    }
+  async execute() {
+    return await this.userRepository.findAllUsers();
+  }
 }

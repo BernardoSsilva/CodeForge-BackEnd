@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../src/shared/errors/bad-request.error';
+import { BadRequestError } from '../../src/shared/errors/bad-request.error'
 import { PostEntity } from '../../src/app/entities/post.entity';
 import { PostRepository } from '../../src/app/repositories/post.repository';
 import { NotFoundError } from '../../src/shared/errors/not-found.error';

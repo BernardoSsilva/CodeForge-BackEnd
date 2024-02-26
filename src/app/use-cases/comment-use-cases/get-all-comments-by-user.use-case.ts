@@ -1,6 +1,8 @@
+import { Injectable } from "@nestjs/common";
 import { CommentRepository } from "../../repositories/comment.repository";
 
-export class GetAllCommentsByUserIdUseCae{
+@Injectable()
+export class GetAllCommentsByUserIdUseCase{
     constructor(private commentRepository:CommentRepository){}
 
     async execute(userId:string){
