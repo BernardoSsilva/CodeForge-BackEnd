@@ -1,5 +1,7 @@
+import { Injectable } from '@nestjs/common';
 import { CommentRepository } from '../../../app/repositories/comment.repository';
 
+@Injectable()
 export class GetCommentByIdUseCase {
   constructor(private commentRepository: CommentRepository) {}
 

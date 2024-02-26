@@ -1,9 +1,11 @@
-import { CommentRepository } from "../../../app/repositories/comment.repository";
+import { Injectable } from '@nestjs/common';
+import { CommentRepository } from '../../../app/repositories/comment.repository';
 
-export class FindAllImagesFromPostUseCase{
-    constructor( private commentRepository:CommentRepository){}
+@Injectable()
+export class GetAllCommentsFromPostUseCase {
+  constructor(private commentRepository: CommentRepository) {}
 
-    async execute(postId:string){
-        return await this.commentRepository.getAllCommentsByPostId(postId)
-    }
+  async execute(postId: string) {
+    return await this.commentRepository.getAllCommentsByPostId(postId);
+  }
 }

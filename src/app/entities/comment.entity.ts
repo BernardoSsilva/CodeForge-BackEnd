@@ -1,46 +1,38 @@
 import { Entity } from '../../shared/entities/entity';
 
 export type CommentProps = {
-  tittle: string;
-  content: string;
-  createdAt:Date;
-  userId:string;
-  postId:string;
+  commentTittle: string;
+  commentContent: string;
+  createdAt?: Date;
+  commentAuthor: string;
+  publication: string;
 };
 
 export class CommentEntity extends Entity<CommentProps> {
-  set tittle(value: string) {
-    this.props.tittle = value;
+  set commentTittle(value: string) {
+    this.props.commentTittle = value;
   }
 
-  get tittle(): string {
-    return this.props.tittle;
+  get commentTittle(): string {
+    return this.props.commentTittle;
   }
 
-  set content(value: string) {
-    this.props.content = value;
+  set commentContent(value: string) {
+    this.props.commentContent = value;
   }
 
-  set userId(value: string) {
-    this.props.userId = value;
+  get commentContent(): string {
+    return this.props.commentContent;
+  }
+  get createdAt(): Date {
+    return this.props.createdAt;
   }
 
-  set postId(value: string) {
-    this.props.postId = value;
+  get commentAuthor(): string {
+    return this.props.commentAuthor;
   }
 
-  get content(): string {
-    return this.props.content;
-  }
-  get createdAt():Date{
-    return this.props.createdAt
-  }
-
-  get userId():string{
-    return this.props.userId
-  }
-
-  get postId():string{
-    return this.props.postId
+  get publication(): string {
+    return this.props.publication;
   }
 }
