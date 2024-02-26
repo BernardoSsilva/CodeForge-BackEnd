@@ -3,11 +3,10 @@ import { Entity } from '../../shared/entities/entity';
 export type PostProps = {
   tittle: string;
   content: string;
-  comments: number;
   likes: number;
   tags: string[];
   createdAt?: Date;
-  userId:string
+  userId: string;
 };
 
 export class PostEntity extends Entity<PostProps> {
@@ -23,12 +22,6 @@ export class PostEntity extends Entity<PostProps> {
   }
   get content(): string {
     return this.props.content;
-  }
-  set comments(value: number) {
-    this.props.comments = value;
-  }
-  get comments(): number {
-    return this.props.comments;
   }
   set likes(value: number) {
     this.props.likes = value;
@@ -46,11 +39,11 @@ export class PostEntity extends Entity<PostProps> {
     return this.props.createdAt;
   }
 
-  get userId():string{
-    return this.props.userId
+  get userId(): string {
+    return this.props.userId;
   }
 
-  set userId(value:string){
-    this.props.userId = value
+  set userId(value: string) {
+    this.props.userId = value;
   }
 }

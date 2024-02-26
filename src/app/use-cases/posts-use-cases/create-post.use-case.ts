@@ -5,7 +5,6 @@ import { PostRepository } from '../../../app/repositories/post.repository';
 export interface CreatePostInterface {
   tittle: string;
   content: string;
-  comments: number;
   likes: number;
   tags: string[];
   userId: string;
