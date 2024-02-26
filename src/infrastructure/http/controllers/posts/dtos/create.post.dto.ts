@@ -1,7 +1,7 @@
 export class CreatePostDto{
-    tittle: string;
-    content: string;
-    likes: number;
-    tags: string[];
+    postTittle: string;
+    postContent: string;
+    postLikes: number;
+    postTags: string[];
     userId:string
 }

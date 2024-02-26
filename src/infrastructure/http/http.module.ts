@@ -16,6 +16,8 @@ import { UpdateUserController } from './controllers/user/update-user.controller'
 import { UpdateUserUseCase } from 'src/app/use-cases/user-use-cases/update-user.use-case';
 import { CreatePostController } from './controllers/posts/create-post.controller';
 import { CreatePostUseCase } from 'src/app/use-cases/posts-use-cases/create-post.use-case';
+import { FIndAllPostsController } from './controllers/posts/find-all-posts.controller';
+import { FindAllPostsUseCase } from 'src/app/use-cases/posts-use-cases/find-all-posts.use-case';
 
 @Module({
   imports: [DataBaseModule],
@@ -31,6 +33,7 @@ import { CreatePostUseCase } from 'src/app/use-cases/posts-use-cases/create-post
     // posts
 
     CreatePostController,
+    FIndAllPostsController,
   ],
   providers: [
     CreateUserUseCase,
@@ -44,6 +47,7 @@ import { CreatePostUseCase } from 'src/app/use-cases/posts-use-cases/create-post
     //posts
 
     CreatePostUseCase,
+    FindAllPostsUseCase,
   ],
 
   exports: [HttpModule],

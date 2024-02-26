@@ -3,10 +3,10 @@ import { PostEntity } from '../../../app/entities/post.entity';
 import { PostRepository } from '../../../app/repositories/post.repository';
 
 export interface CreatePostInterface {
-  tittle: string;
-  content: string;
-  likes: number;
-  tags: string[];
+  postTittle: string;
+  postContent: string;
+  postLikes: number;
+  postTags: string[];
   userId: string;
 }
 
