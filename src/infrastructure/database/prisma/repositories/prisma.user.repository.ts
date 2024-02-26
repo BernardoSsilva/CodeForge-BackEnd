@@ -1,10 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { BadRequestError } from 'src/shared/errors/bad-request.error';
 import { UserEntity } from '../../../../app/entities/user.entity';
 import { UserRepository } from '../../../../app/repositories/user.repository';
 import { UserMapper } from '../mappers/user.mapper';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service';
-import { BadRequestError } from 'src/shared/errors/bad-request.error';
-import { NotFoundError } from 'src/shared/errors/not-found.error';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -134,5 +138,29 @@ export class PrismaUserRepository implements UserRepository {
     } catch {
       throw new Error();
     }
+  }
+
+  // authenticate
+
+  async authenticate(authenticationBody): Promise<Boolean> {
+
+      console.log(authenticationBody)
+      const userExists = await this.prisma.user.findUnique({
+        where: { userLogin: authenticationBody.userLogin },
+      });
+      if (!userExists) {
+        throw new NotFoundException('User not found');
+      }
+
+      const premisedPassword = await bcrypt.compareSync(
+        authenticationBody.userPassword,
+        userExists.userPassword,
+      );
+      if (!premisedPassword) {
+        throw new UnauthorizedException('Unauthorized');
+      }
+
+      return true;
+ 
   }
 }
