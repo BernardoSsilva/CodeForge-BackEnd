@@ -46,14 +46,24 @@ export class PrismaPostRepository implements PostRepository {
           postId: id,
         },
       });
-      
-      return PostMapper.toDomain(result)
+
+      return PostMapper.toDomain(result);
     } catch {
-        throw new Error
+      throw new Error();
     }
   }
-  getAllPostsByUser(userId: string): Promise<PostEntity[]> {
-    throw new Error('Method not implemented.');
+  async getAllPostsByUser(userId: string): Promise<PostEntity[]> {
+    try {
+      const result = await this.prisma.post.findMany({
+        where: {
+          userId,
+        },
+      });
+
+      return result.map((post) => PostMapper.toDomain(post));
+    } catch {
+      throw new Error();
+    }
   }
   updatePost(post: PostEntity, postId: string): Promise<void> {
     throw new Error('Method not implemented.');
