@@ -7,7 +7,7 @@ describe('Delete posts use case unit tests', () => {
   const deletePost = new DeletePostUseCase(postRepository);
 
   it('Should throw an error if post does not founded', () => {
-    expect(() => deletePost.execute('')).rejects.toThrow();
+    expect(() => deletePost.execute('', 'testId')).rejects.toThrow();
   });
 
   it('Should delete a post', async () => {
@@ -25,7 +25,7 @@ describe('Delete posts use case unit tests', () => {
     expect(postRepository.posts).toHaveLength(1);
     expect(postRepository.posts[0].id).toEqual(newPost.id);
 
-    await deletePost.execute(newPost.id);
+    await deletePost.execute(newPost.id, 'testId');
 
     expect(postRepository.posts).toHaveLength(0);
   });
