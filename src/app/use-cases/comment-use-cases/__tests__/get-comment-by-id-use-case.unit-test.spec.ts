@@ -12,11 +12,11 @@ describe('Get all users use cases unit tests', () => {
 
   it('Should be able to find all comments', async () => {
     const newComment = new CommentEntity({
-      content: 'testContent',
+      commentContent: "testContent",
       createdAt: new Date(),
-      postId: 'testId',
-      userId: 'testId',
-      tittle: 'testTittle',
+      commentAuthor: "testId",
+      publication: "testId",
+      commentTitle: "testtitle"
     });
 
     await commentRepository.postComment(newComment);

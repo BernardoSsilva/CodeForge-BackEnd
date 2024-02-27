@@ -1,9 +1,15 @@
-import { NotFoundError } from '../../src/shared/errors/not-found.error';
+import { AuthenticationDto } from 'src/infrastructure/http/controllers/user/dtos/authentication.dto';
 import { UserEntity } from '../../src/app/entities/user.entity';
 import { UserRepository } from '../../src/app/repositories/user.repository';
 import { BadRequestError } from '../../src/shared/errors/bad-request.error';
+import { NotFoundError } from '../../src/shared/errors/not-found.error';
 
 export class UserInMemoryRepository implements UserRepository {
+  authenticate(authenticationInterface: AuthenticationDto): Promise<{ access_token: string }> {
+    throw new Error('Method not implemented.');
+  }
+  
+
   public users: UserEntity[] = [];
   async findAllUsers(): Promise<UserEntity[]> {
     if (this.users.length <= 0) {

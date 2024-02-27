@@ -13,11 +13,11 @@ describe("Get all users use cases unit tests", () =>{
 
     it("Should be able to find all comments",async () =>{
         const newComment = new CommentEntity({
-            content: "testContent",
+            commentContent: "testContent",
             createdAt: new Date(),
-            postId: "testId",
-            userId: "testId",
-            tittle: "testTittle"
+            commentAuthor: "testId",
+            publication: "testId",
+            commentTitle: "testtitle"
         })
 
         await commentRepository.postComment(newComment)
@@ -26,10 +26,10 @@ describe("Get all users use cases unit tests", () =>{
 
         expect(commentRepository.comments).toHaveLength(1)
         expect(commentRepository.comments[0].id).toEqual(result[0].id)
-        expect(commentRepository.comments[0].content).toEqual(result[0].content)
-        expect(commentRepository.comments[0].postId).toEqual(result[0].postId)
-        expect(commentRepository.comments[0].tittle).toEqual(result[0].tittle)
-        expect(commentRepository.comments[0].userId).toEqual(result[0].userId)
+        expect(commentRepository.comments[0].commentContent).toEqual(result[0].commentContent)
+        expect(commentRepository.comments[0].publication).toEqual(result[0].publication)
+        expect(commentRepository.comments[0].commentTitle).toEqual(result[0].commentTitle)
+        expect(commentRepository.comments[0].commentAuthor).toEqual(result[0].commentAuthor)
         expect(result[0].createdAt).toBeInstanceOf(Date)
     })
 })

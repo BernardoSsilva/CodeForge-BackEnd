@@ -3,7 +3,7 @@ import { PostRepository } from '../../repositories/post.repository';
 import { Injectable } from '@nestjs/common';
 
 export interface UpdatePostInterface {
-  postTittle?: string;
+  postTitle?: string;
   postContent?: string;
   postLikes?: number;
   postTags?: string[];
@@ -12,7 +12,8 @@ export interface UpdatePostInterface {
 export class UpdatePostUseCase {
   constructor(private postRepository: PostRepository) {}
 
-  async execute(postData: UpdatePostInterface, postId: string) {
-    return await this.postRepository.updatePost(postData, postId);
+  async execute(postData: UpdatePostInterface, postId: string, userId:string) {
+    
+    return await this.postRepository.updatePost(postData, postId, userId);
   }
 }

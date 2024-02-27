@@ -13,7 +13,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Post" (
     "postId" TEXT NOT NULL,
-    "postTittle" TEXT NOT NULL,
+    "postTitle" TEXT NOT NULL,
     "postContent" TEXT NOT NULL,
     "postTags" TEXT[],
     "postLikes" INTEGER NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE "Post" (
 -- CreateTable
 CREATE TABLE "Comment" (
     "commentId" TEXT NOT NULL,
-    "commentTittle" TEXT NOT NULL,
+    "commentTitle" TEXT NOT NULL,
     "commentContent" TEXT NOT NULL,
     "commentAuthor" TEXT NOT NULL,
     "publication" TEXT NOT NULL,

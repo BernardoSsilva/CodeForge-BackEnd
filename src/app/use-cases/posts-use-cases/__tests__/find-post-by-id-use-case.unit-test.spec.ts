@@ -12,11 +12,10 @@ describe('Find post bt id use case unit tests', () => {
 
   it('Should be able to get a post by id', async () => {
     const newPost = new PostEntity({
-      tittle: 'test tittle',
-      comments: 10,
-      content: 'test content',
-      likes: 0,
-      tags: ['test tag 1', 'test tag 2'],
+      postTitle: 'test title',
+      postContent: 'test content',
+      postLikes: 0,
+      postTags: ['test tag 1', 'test tag 2'],
       userId: 'testId',
       createdAt: new Date(),
     });

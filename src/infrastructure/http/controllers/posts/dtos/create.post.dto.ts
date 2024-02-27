@@ -1,5 +1,5 @@
 export class CreatePostDto{
-    postTittle: string;
+    postTitle: string;
     postContent: string;
     postLikes: number;
     postTags: string[];

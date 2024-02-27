@@ -1,7 +1,7 @@
 import { PostEntity } from 'src/app/entities/post.entity';
 import { PostRepository } from 'src/app/repositories/post.repository';
 import { PrismaService } from '../prisma.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { error } from 'console';
 import { PostMapper } from '../mappers/post.mapper';
 
@@ -24,7 +24,7 @@ export class PrismaPostRepository implements PostRepository {
         data: {
           postContent: post.props.postContent,
           postLikes: post.props.postLikes,
-          postTittle: post.props.postTittle,
+          postTitle: post.props.postTitle,
           userId: post.props.userId,
           postTags: post.props.postTags,
         },
@@ -44,7 +44,7 @@ export class PrismaPostRepository implements PostRepository {
 
       return result.map((post) => PostMapper.toDomain(post));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -63,7 +63,7 @@ export class PrismaPostRepository implements PostRepository {
 
       return PostMapper.toDomain(result);
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -81,37 +81,50 @@ export class PrismaPostRepository implements PostRepository {
 
       return result.map((post) => PostMapper.toDomain(post));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
   // update post
-  async updatePost(post: Partial<PostEntity>, postId: string): Promise<void> {
+  async updatePost(post: Partial<PostEntity>, postId: string, userId:string): Promise<void> {
     try {
+
+      
       const postExists = await this.prisma.post.findUnique({
         where: { postId },
       });
+      
       if (!postExists) {
         throw new NotFoundException('Post not found');
       }
+
+      if(postExists.userId !== userId){
+        throw new UnauthorizedException("Can't edit posts from other users")
+      }
       await this.prisma.post.update({ where: { postId }, data: post });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
   // delete a post
-  async deletePost(id: string): Promise<void> {
+  async deletePost(id: string, userId): Promise<void> {
     try {
       const postExists = await this.prisma.post.findUnique({
         where: { postId: id },
       });
+
+
       if (!postExists) {
         throw new NotFoundException('Post not found');
       }
+
+      if(postExists.userId !== userId){
+        throw new UnauthorizedException("Can't delete posts from other users")
+      }
       await this.prisma.post.delete({ where: { postId: id } });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 }

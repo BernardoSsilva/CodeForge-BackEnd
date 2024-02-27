@@ -26,7 +26,7 @@ model User{
 
 model Post{
   postId String @unique @id @default(uuid())
-  postTittle String 
+  postTitle String 
   postContent String
   postTags String[]
   postLikes Int
@@ -39,7 +39,7 @@ model Post{
 
 model Comment{
   commentId String @unique @id @default(uuid())
-  commentTittle String
+  commentTitle String
   commentContent String
   author User @relation(fields: [commentAuthor], references: [userId])
   commentAuthor String

@@ -6,8 +6,16 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaCommentRepository } from './prisma/repositories/prisma.comment.repository';
 import { PrismaPostRepository } from './prisma/repositories/prisma.post.repository';
 import { PrismaUserRepository } from './prisma/repositories/prisma.user.repository';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
+  imports: [
+    JwtModule.register({
+      global: true,
+      secret: 'mysecret',
+      signOptions: { expiresIn: '8h' },
+    }),
+  ],
   providers: [
     PrismaService,
     {

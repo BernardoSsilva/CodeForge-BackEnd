@@ -40,6 +40,8 @@ import { UpdateCommentUseCase } from 'src/app/use-cases/comment-use-cases/update
 import { UpdateCommentController } from './controllers/comment/update-comment.controller';
 import { DeleteCommentUseCase } from 'src/app/use-cases/comment-use-cases/delete-comment.use-case';
 import { DeleteCommentController } from './controllers/comment/delete-comment.controller';
+import { AuthenticateUserUseCase } from 'src/app/use-cases/user-use-cases/authenticate-user.use-case';
+import { AuthenticateUserController } from './controllers/user/user-authenticate.controller';
 
 @Module({
   imports: [DataBaseModule],
@@ -51,6 +53,7 @@ import { DeleteCommentController } from './controllers/comment/delete-comment.co
     FindUserByLoginController,
     DeleteUserController,
     UpdateUserController,
+    AuthenticateUserController,
 
     // posts
 
@@ -79,6 +82,7 @@ import { DeleteCommentController } from './controllers/comment/delete-comment.co
     FindUserByLoginUseCase,
     DeleteUserUseCase,
     UpdateUserUseCase,
+    AuthenticateUserUseCase,
 
     //posts
 
@@ -97,6 +101,7 @@ import { DeleteCommentController } from './controllers/comment/delete-comment.co
     GetAllCommentsByUserIdUseCase,
     UpdateCommentUseCase,
     DeleteCommentUseCase,
+    
   ],
 
   exports: [HttpModule],

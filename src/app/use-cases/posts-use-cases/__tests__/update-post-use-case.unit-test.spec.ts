@@ -8,41 +8,38 @@ describe('Update post use case unit tests', () => {
 
   it('Should throw an error if post not found', () => {
     const newPost = new PostEntity({
-      tittle: 'test tittle',
-      comments: 10,
-      content: 'test content',
-      likes: 0,
-      tags: ['test tag 1', 'test tag 2'],
+      postTitle: 'test title',
+      postContent: 'test content',
+      postLikes: 0,
+      postTags: ['test tag 1', 'test tag 2'],
       userId: 'testId',
       createdAt: new Date(),
     });
 
-    expect(async () => await updatePost.execute(newPost, '')).rejects.toThrow();
+    expect(async () => await updatePost.execute(newPost, '', "")).rejects.toThrow();
   });
 
   it('Should throw an error if not has a edit body', () => {
     const newPost = new PostEntity({
-      tittle: 'test tittle',
-      comments: 10,
-      content: 'test content',
-      likes: 0,
-      tags: ['test tag 1', 'test tag 2'],
+      postTitle: 'test title',
+      postContent: 'test content',
+      postLikes: 0,
+      postTags: ['test tag 1', 'test tag 2'],
       userId: 'testId',
       createdAt: new Date(),
     });
 
     expect(
-      async () => await updatePost.execute(null, newPost.id),
+      async () => await updatePost.execute(null, newPost.id, null),
     ).rejects.toThrow();
   });
 
   it('Should be able to update a post', async () => {
     const firstPost = new PostEntity({
-      tittle: 'test tittle',
-      comments: 10,
-      content: 'test content',
-      likes: 0,
-      tags: ['test tag 1', 'test tag 2'],
+      postTitle: 'test title',
+      postContent: 'test content',
+      postLikes: 0,
+      postTags: ['test tag 1', 'test tag 2'],
       userId: 'testId',
       createdAt: new Date(),
     });
@@ -51,23 +48,22 @@ describe('Update post use case unit tests', () => {
 
     expect(repository.posts[0].id).toEqual(firstPost.id)
     const newPost = new PostEntity({
-      tittle: 'new tittle',
-      comments: 12,
-      content: 'new content',
-      likes: 1,
-      tags: ['new test tag 1', 'test tag 2'],
+      postTitle: 'test title',
+      postContent: 'test content',
+      postLikes: 0,
+      postTags: ['test tag 1', 'test tag 2'],
       userId: 'testId',
+      createdAt: new Date(),
     });
 
     newPost.id = firstPost.id
 
-    await updatePost.execute(newPost, newPost.id)
+    await updatePost.execute(newPost, newPost.id, "testId")
 
     expect(repository.posts).toHaveLength(1)
-    expect(repository.posts[0].tittle).toEqual(newPost.tittle)
-    expect(repository.posts[0].comments).toEqual(newPost.comments)
-    expect(repository.posts[0].content).toEqual(newPost.content)
-    expect(repository.posts[0].likes).toEqual(newPost.likes)
+    expect(repository.posts[0].postTitle).toEqual(newPost.postTitle)
+    expect(repository.posts[0].postContent).toEqual(newPost.postContent)
+    expect(repository.posts[0].postLikes).toEqual(newPost.postLikes)
     
   });
 });

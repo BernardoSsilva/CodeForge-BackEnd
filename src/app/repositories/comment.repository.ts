@@ -2,7 +2,7 @@ import { CommentEntity } from '../entities/comment.entity';
 
 export abstract class CommentRepository {
   abstract postComment(comment: CommentEntity): Promise<void>;
-  abstract deleteComment(commentId: string): Promise<void>;
+  abstract deleteComment(commentId: string, userId:string): Promise<void>;
 
   abstract getAllComments(): Promise<CommentEntity[]>;
 
@@ -14,6 +14,6 @@ export abstract class CommentRepository {
 
   abstract updateComment(
     comment: Partial<CommentEntity>,
-    commentId: string,
+    commentId: string, userId:string
   ): Promise<void>;
 }

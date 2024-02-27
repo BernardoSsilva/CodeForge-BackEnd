@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CommentEntity } from 'src/app/entities/comment.entity';
 import { CommentRepository } from 'src/app/repositories/comment.repository';
 import { CommentMapper } from '../mappers/comment.mapper';
@@ -11,7 +16,7 @@ export class PrismaCommentRepository implements CommentRepository {
   //post comment
   async postComment(comment: CommentEntity): Promise<void> {
     try {
-      const { commentAuthor, commentContent, commentTittle, publication } =
+      const { commentAuthor, commentContent, commentTitle, publication } =
         comment;
 
       const userExists = await this.prisma.user.findUnique({
@@ -30,10 +35,10 @@ export class PrismaCommentRepository implements CommentRepository {
       }
 
       await this.prisma.comment.create({
-        data: { commentAuthor, commentContent, commentTittle, publication },
+        data: { commentAuthor, commentContent, commentTitle, publication },
       });
     } catch {
-      throw new Error();
+      throw new BadRequestException('Bad request');
     }
   }
 
@@ -48,7 +53,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
-      throw new Error();
+      throw new BadRequestException('Bad request');
     }
   }
 
@@ -67,7 +72,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return CommentMapper.toDomain(result);
     } catch {
-      throw new Error();
+      throw new BadRequestException('Bad request');
     }
   }
 
@@ -84,7 +89,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
-      throw new Error();
+      throw new BadRequestException('Bad request');
     }
   }
 
@@ -101,7 +106,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
-      throw new Error();
+      throw new BadRequestException('Bad request');
     }
   }
 
@@ -109,6 +114,7 @@ export class PrismaCommentRepository implements CommentRepository {
   async updateComment(
     comment: Partial<CommentEntity>,
     commentId: string,
+    userId: string,
   ): Promise<void> {
     try {
       const commentExists = await this.prisma.comment.findUnique({
@@ -117,14 +123,20 @@ export class PrismaCommentRepository implements CommentRepository {
       if (!commentExists) {
         throw new NotFoundException('Comment not found');
       }
+
+      if (commentExists.commentAuthor !== userId) {
+        throw new UnauthorizedException(
+          'Not able to delete comments from other users',
+        );
+      }
       await this.prisma.comment.update({ where: { commentId }, data: comment });
     } catch {
-      throw new Error();
+      throw new BadRequestException('Bad request');
     }
   }
 
   // delete comment
-  async deleteComment(commentId: string): Promise<void> {
+  async deleteComment(commentId: string, userId: string): Promise<void> {
     try {
       const commentExists = await this.prisma.comment.findUnique({
         where: { commentId },
@@ -133,9 +145,14 @@ export class PrismaCommentRepository implements CommentRepository {
         throw new NotFoundException('Comment not found');
       }
 
+      if (commentExists.commentAuthor !== userId) {
+        throw new UnauthorizedException(
+          'Not able to delete comments from other users',
+        );
+      }
       await this.prisma.comment.delete({ where: { commentId } });
     } catch {
-      throw new Error();
+      throw new BadRequestException('Bad request');
     }
   }
 }
