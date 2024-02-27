@@ -16,7 +16,7 @@ describe('Update comment use case unit tests', () => {
     });
 
     expect(
-      async () => await updateComment.execute(newComment, ''),
+      async () => await updateComment.execute(newComment, '', ""),
     ).rejects.toThrow();
   });
 
@@ -30,7 +30,7 @@ describe('Update comment use case unit tests', () => {
     });
 
     expect(
-      async () => await updateComment.execute(null, newComment.id),
+      async () => await updateComment.execute(null, newComment.id, ""),
     ).rejects.toThrow();
   });
 
@@ -56,7 +56,7 @@ describe('Update comment use case unit tests', () => {
 
     newComment.id = firstComment.id;
 
-    await updateComment.execute(newComment, newComment.id);
+    await updateComment.execute(newComment, newComment.id, "testId");
 
     expect(commentRepository.comments).toHaveLength(1);
     expect(commentRepository.comments[0].commentTitle).toEqual(newComment.commentTitle);

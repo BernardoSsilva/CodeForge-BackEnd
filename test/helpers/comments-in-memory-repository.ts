@@ -12,11 +12,15 @@ export class CommentsInMemoryRepository implements CommentRepository{
         }
         await this.comments.push(comment)
     }
-    async deleteComment(commentId: string): Promise<void> {
+    async deleteComment(commentId: string, userId): Promise<void> {
         const deletedCommentIndex = this.comments.findIndex(comment => comment.id === commentId);
 
         if(deletedCommentIndex < 0){
             throw new NotFoundError('Comment not found');
+        }
+
+        if(this.comments[deletedCommentIndex].commentAuthor !== userId){
+            throw new BadRequestError("not premised")
         }
 
         await this.comments.splice(deletedCommentIndex, 1)
@@ -51,7 +55,7 @@ export class CommentsInMemoryRepository implements CommentRepository{
         };
         return await allCommentsFromUser
     }
-    async updateComment(comment: CommentEntity, commentId: string): Promise<void> {
+    async updateComment(comment: CommentEntity, commentId: string, userId:string): Promise<void> {
         const updatedComment = await this.comments.findIndex(comment => comment.id == commentId);
         if(updatedComment < 0){
             throw new NotFoundError('Comment not found');

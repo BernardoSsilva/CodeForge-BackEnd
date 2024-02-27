@@ -12,7 +12,7 @@ export interface UpdateCommentInterface {
 export class UpdateCommentUseCase {
   constructor(private commentRepository: CommentRepository) {}
 
-  async execute(commentEntity: UpdateCommentInterface, commentId: string) {
-    return await this.commentRepository.updateComment(commentEntity, commentId);
+  async execute(commentEntity: UpdateCommentInterface, commentId: string, userId:string) {
+    return await this.commentRepository.updateComment(commentEntity, commentId, userId);
   }
 }
