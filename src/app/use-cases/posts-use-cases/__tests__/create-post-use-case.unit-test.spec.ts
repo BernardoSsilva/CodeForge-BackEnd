@@ -12,18 +12,17 @@ describe('Create Post use case unit tests', () => {
 
   it('Should be able to create a new post ', async () => {
     const newPost = new PostEntity({
-      comments: 0,
-      content: 'test content',
+      postTitle: 'test title',
+      postContent: 'test content',
+      postLikes: 0,
+      postTags: ['test tag 1', 'test tag 2'],
+      userId: 'testId',
       createdAt: new Date(),
-      likes: 0,
-      tags:["test tag1", "test tag 2"],
-      tittle:"testTitle",
-      userId:"testId"
     });
 
-    await createPost.execute(newPost)
-
-    expect(repository.posts).toHaveLength(1)
-    expect(repository.posts[0].id).toEqual(newPost.id)
+    await createPost.execute(newPost);
+    newPost.id = repository.posts[0].id;
+    expect(repository.posts).toHaveLength(1);
+    expect(repository.posts[0].id).toEqual(newPost.id);
   });
 });

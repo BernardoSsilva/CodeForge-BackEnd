@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CommentRepository } from '../../../app/repositories/comment.repository';
 
 export interface UpdateCommentInterface {
-  commentTittle?: string;
+  commentTitle?: string;
   commentContent?: string;
   commentAuthor?: string;
   publication?: string;

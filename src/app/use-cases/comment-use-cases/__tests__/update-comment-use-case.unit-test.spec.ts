@@ -8,11 +8,11 @@ describe('Update comment use case unit tests', () => {
 
   it('Should throw an error if comment not found', () => {
     const newComment = new CommentEntity({
-      content: 'testContent',
-      createdAt: new Date(),
-      postId: 'testId',
-      userId: 'testId',
-      tittle: 'testTittle',
+      commentContent: "testContent",
+            createdAt: new Date(),
+            commentAuthor: "testId",
+            publication: "testId",
+            commentTitle: "testtitle"
     });
 
     expect(
@@ -22,11 +22,11 @@ describe('Update comment use case unit tests', () => {
 
   it('Should throw an error if not has a edit body', () => {
     const newComment = new CommentEntity({
-      content: 'testContent',
+      commentContent: "testContent",
       createdAt: new Date(),
-      postId: 'testId',
-      userId: 'testId',
-      tittle: 'testTittle',
+      commentAuthor: "testId",
+      publication: "testId",
+      commentTitle: "testtitle"
     });
 
     expect(
@@ -36,22 +36,22 @@ describe('Update comment use case unit tests', () => {
 
   it('Should be able to update a comment', async () => {
     const firstComment = new CommentEntity({
-      content: 'testContent',
+      commentContent: "testContent",
       createdAt: new Date(),
-      postId: 'testId',
-      userId: 'testId',
-      tittle: 'testTittle',
+      commentAuthor: "testId",
+      publication: "testId",
+      commentTitle: "testtitle"
     });
 
     commentRepository.comments = [firstComment];
 
     expect(commentRepository.comments[0].id).toEqual(firstComment.id);
     const newComment = new CommentEntity({
-      content: 'testContent',
+      commentContent: "testContent",
       createdAt: new Date(),
-      postId: 'testId',
-      userId: 'testId',
-      tittle: 'testTittle',
+      commentAuthor: "testId",
+      publication: "testId",
+      commentTitle: "testtitle"
     });
 
     newComment.id = firstComment.id;
@@ -59,9 +59,9 @@ describe('Update comment use case unit tests', () => {
     await updateComment.execute(newComment, newComment.id);
 
     expect(commentRepository.comments).toHaveLength(1);
-    expect(commentRepository.comments[0].tittle).toEqual(newComment.tittle);
-    expect(commentRepository.comments[0].userId).toEqual(newComment.userId);
-    expect(commentRepository.comments[0].content).toEqual(newComment.content);
-    expect(commentRepository.comments[0].postId).toEqual(newComment.postId);
+    expect(commentRepository.comments[0].commentTitle).toEqual(newComment.commentTitle);
+    expect(commentRepository.comments[0].commentAuthor).toEqual(newComment.commentAuthor);
+    expect(commentRepository.comments[0].commentContent).toEqual(newComment.commentContent);
+    expect(commentRepository.comments[0].publication).toEqual(newComment.publication);
   });
 });

@@ -11,11 +11,11 @@ describe('Delete comment use case unit tests', () => {
 
   it('Should delete a comment', async () => {
     const newComment = new CommentEntity({
-      content: 'testContent',
+      commentContent: 'testContent',
       createdAt: new Date(),
-      postId: 'testId',
-      userId: 'testId',
-      tittle: 'testTittle',
+      commentAuthor: 'testId',
+      publication: 'testId',
+      commentTitle: 'testtitle',
     });
 
     await commentRepository.postComment(newComment);

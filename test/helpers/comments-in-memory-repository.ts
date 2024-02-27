@@ -37,7 +37,7 @@ export class CommentsInMemoryRepository implements CommentRepository{
         return await comment
     }
     async getAllCommentsByPostId(postId: string): Promise<CommentEntity[]> {
-        const allCommentsFromPost = this.comments.filter(comment => comment.postId === postId)
+        const allCommentsFromPost = this.comments.filter(comment => comment.publication === postId)
         if(allCommentsFromPost.length <= 0){
             throw new NotFoundError('Comments not found');
         }
@@ -45,7 +45,7 @@ export class CommentsInMemoryRepository implements CommentRepository{
         return await allCommentsFromPost
     }
     async getAllCommentsByUserId(userId: string): Promise<CommentEntity[]> {
-        const allCommentsFromUser = this.comments.filter(comment => comment.userId == userId)
+        const allCommentsFromUser = this.comments.filter(comment => comment.commentAuthor == userId)
         if(allCommentsFromUser.length == 0){
             throw new NotFoundError('Comments not found');
         };

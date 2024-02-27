@@ -11,7 +11,7 @@ export class PrismaCommentRepository implements CommentRepository {
   //post comment
   async postComment(comment: CommentEntity): Promise<void> {
     try {
-      const { commentAuthor, commentContent, commentTittle, publication } =
+      const { commentAuthor, commentContent, commentTitle, publication } =
         comment;
 
       const userExists = await this.prisma.user.findUnique({
@@ -30,7 +30,7 @@ export class PrismaCommentRepository implements CommentRepository {
       }
 
       await this.prisma.comment.create({
-        data: { commentAuthor, commentContent, commentTittle, publication },
+        data: { commentAuthor, commentContent, commentTitle, publication },
       });
     } catch {
       throw new BadRequestException("Bad request");

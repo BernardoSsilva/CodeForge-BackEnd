@@ -1,7 +1,7 @@
 import { Entity } from '../../shared/entities/entity';
 
 export type CommentProps = {
-  commentTittle: string;
+  commentTitle: string;
   commentContent: string;
   createdAt?: Date;
   commentAuthor: string;
@@ -9,12 +9,12 @@ export type CommentProps = {
 };
 
 export class CommentEntity extends Entity<CommentProps> {
-  set commentTittle(value: string) {
-    this.props.commentTittle = value;
+  set commentTitle(value: string) {
+    this.props.commentTitle = value;
   }
 
-  get commentTittle(): string {
-    return this.props.commentTittle;
+  get commentTitle(): string {
+    return this.props.commentTitle;
   }
 
   set commentContent(value: string) {

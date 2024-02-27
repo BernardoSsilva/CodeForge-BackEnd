@@ -1,7 +1,7 @@
 import { Entity } from '../../shared/entities/entity';
 
 export type PostProps = {
-  postTittle: string;
+  postTitle: string;
   postContent: string;
   postLikes: number;
   postTags: string[];
@@ -10,11 +10,11 @@ export type PostProps = {
 };
 
 export class PostEntity extends Entity<PostProps> {
-  set postTittle(value: string) {
-    this.props.postTittle = value;
+  set postTitle(value: string) {
+    this.props.postTitle = value;
   }
-  get postTittle(): string {
-    return this.props.postTittle;
+  get postTitle(): string {
+    return this.props.postTitle;
   }
 
   set postContent(value: string) {

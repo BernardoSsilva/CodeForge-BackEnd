@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CommentEntity } from '../../../app/entities/comment.entity';
 import { CommentRepository } from '../../../app/repositories/comment.repository';
 
+
 export interface CreateCommentInterface {
-  commentTittle: string;
+  commentTitle: string;
   commentContent: string;
   commentAuthor: string;
   publication: string;
@@ -13,7 +14,9 @@ export interface CreateCommentInterface {
 export class CreateCommentUseCase {
   constructor(private commentRepository: CommentRepository) {}
   async execute(comment: CreateCommentInterface) {
-    console.log(comment);
+    if(!comment){
+      throw new BadRequestException("Bad request")
+    }
     const createdComment = new CommentEntity(comment);
 
     return await this.commentRepository.postComment(createdComment);

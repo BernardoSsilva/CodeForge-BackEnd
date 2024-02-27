@@ -24,7 +24,7 @@ export class PrismaPostRepository implements PostRepository {
         data: {
           postContent: post.props.postContent,
           postLikes: post.props.postLikes,
-          postTittle: post.props.postTittle,
+          postTitle: post.props.postTitle,
           userId: post.props.userId,
           postTags: post.props.postTags,
         },

@@ -1,10 +1,10 @@
 import { CommentsInMemoryRepository } from '../../../../../test/helpers/comments-in-memory-repository';
-import { FindAllImagesFromPostUseCase } from '../get-all-comments-from-post.use-case';
+import { GetAllCommentsFromPostUseCase } from '../get-all-comments-from-post.use-case';
 import { CommentEntity } from '../../../../app/entities/comment.entity';
 
 describe('Get all comments from a publication use case unit tests', () => {
   const commentRepository = new CommentsInMemoryRepository();
-  const getAllCommentsFromPublication = new FindAllImagesFromPostUseCase(
+  const getAllCommentsFromPublication = new GetAllCommentsFromPostUseCase(
     commentRepository,
   );
 
@@ -16,15 +16,15 @@ describe('Get all comments from a publication use case unit tests', () => {
 
   it('Should return all comments from a publication', async () => {
     const newComment = new CommentEntity({
-      content: 'testContent',
+      commentContent: "testContent",
       createdAt: new Date(),
-      postId: 'testId',
-      userId: 'testId',
-      tittle: 'testTittle',
+      commentAuthor: "testId",
+      publication: "testId",
+      commentTitle: "testtitle"
     });
 
     commentRepository.postComment(newComment)
-    const result = await getAllCommentsFromPublication.execute(newComment.postId)
+    const result = await getAllCommentsFromPublication.execute(newComment.publication)
 
     expect(result).toBeDefined()
     expect(newComment.id).toEqual(commentRepository.comments[0].id)

@@ -8,7 +8,7 @@ export abstract class PostRepository {
 
   abstract getAllPostsByUser(userId: string): Promise<PostEntity[]>;
 
-  abstract updatePost(post: Partial<PostEntity>, postId: string): Promise<void>;
+  abstract updatePost(post: Partial<PostEntity>, postId: string, userId:string): Promise<void>;
 
   abstract deletePost(id: string): Promise<void>;
 }

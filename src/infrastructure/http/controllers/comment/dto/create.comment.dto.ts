@@ -1,5 +1,5 @@
 export class CreateCommentDto {
-  commentTittle: string;
+  commentTitle: string;
   commentContent: string;
   commentAuthor: string;
   publication: string;
