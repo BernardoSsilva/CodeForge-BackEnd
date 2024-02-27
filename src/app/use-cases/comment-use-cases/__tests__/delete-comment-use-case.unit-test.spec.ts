@@ -6,7 +6,7 @@ describe('Delete comment use case unit tests', () => {
   const deleteComment = new DeleteCommentUseCase(commentRepository);
 
   it('Should throw an error if comment does not founded', () => {
-    expect(() => deleteComment.execute('')).rejects.toThrow();
+    expect(() => deleteComment.execute('', null)).rejects.toThrow();
   });
 
   it('Should delete a comment', async () => {
@@ -23,7 +23,7 @@ describe('Delete comment use case unit tests', () => {
     expect(commentRepository.comments).toHaveLength(1);
     expect(commentRepository.comments[0].id).toEqual(newComment.id);
 
-    await deleteComment.execute(newComment.id);
+    await deleteComment.execute(newComment.id, "testId");
 
     expect(commentRepository.comments).toHaveLength(0);
   });
