@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CommentEntity } from 'src/app/entities/comment.entity';
 import { CommentRepository } from 'src/app/repositories/comment.repository';
 import { CommentMapper } from '../mappers/comment.mapper';
@@ -33,7 +33,7 @@ export class PrismaCommentRepository implements CommentRepository {
         data: { commentAuthor, commentContent, commentTittle, publication },
       });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -48,7 +48,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -67,7 +67,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return CommentMapper.toDomain(result);
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -84,7 +84,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -101,7 +101,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       return result.map((comment) => CommentMapper.toDomain(comment));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -119,7 +119,7 @@ export class PrismaCommentRepository implements CommentRepository {
       }
       await this.prisma.comment.update({ where: { commentId }, data: comment });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -135,7 +135,7 @@ export class PrismaCommentRepository implements CommentRepository {
 
       await this.prisma.comment.delete({ where: { commentId } });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 }

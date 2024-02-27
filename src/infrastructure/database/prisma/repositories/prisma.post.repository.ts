@@ -1,7 +1,7 @@
 import { PostEntity } from 'src/app/entities/post.entity';
 import { PostRepository } from 'src/app/repositories/post.repository';
 import { PrismaService } from '../prisma.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { error } from 'console';
 import { PostMapper } from '../mappers/post.mapper';
 
@@ -44,7 +44,7 @@ export class PrismaPostRepository implements PostRepository {
 
       return result.map((post) => PostMapper.toDomain(post));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -63,7 +63,7 @@ export class PrismaPostRepository implements PostRepository {
 
       return PostMapper.toDomain(result);
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -81,7 +81,7 @@ export class PrismaPostRepository implements PostRepository {
 
       return result.map((post) => PostMapper.toDomain(post));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -96,7 +96,7 @@ export class PrismaPostRepository implements PostRepository {
       }
       await this.prisma.post.update({ where: { postId }, data: post });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -111,7 +111,7 @@ export class PrismaPostRepository implements PostRepository {
       }
       await this.prisma.post.delete({ where: { postId: id } });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 }

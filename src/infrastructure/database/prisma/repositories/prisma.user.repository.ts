@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -27,7 +28,7 @@ export class PrismaUserRepository implements UserRepository {
       }
       return result.map((user) => UserMapper.toDomain(user));
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -42,7 +43,7 @@ export class PrismaUserRepository implements UserRepository {
       }
       return UserMapper.toDomain(result);
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -75,7 +76,7 @@ export class PrismaUserRepository implements UserRepository {
         },
       });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -93,7 +94,7 @@ export class PrismaUserRepository implements UserRepository {
         data: user,
       });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -108,7 +109,7 @@ export class PrismaUserRepository implements UserRepository {
       }
       await this.prisma.user.delete({ where: { userId: id } });
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -124,7 +125,7 @@ export class PrismaUserRepository implements UserRepository {
       }
       return UserMapper.toDomain(result);
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
@@ -140,7 +141,7 @@ export class PrismaUserRepository implements UserRepository {
       }
       return UserMapper.toDomain(result);
     } catch {
-      throw new Error();
+      throw new BadRequestException("Bad request");
     }
   }
 
