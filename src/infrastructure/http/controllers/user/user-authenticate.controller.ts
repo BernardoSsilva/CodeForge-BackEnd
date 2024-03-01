@@ -1,4 +1,4 @@
-import { Body, Controller, Injectable, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
 import { AuthenticateUserUseCase } from 'src/app/use-cases/user-use-cases/authenticate-user.use-case';
 import { AuthenticationDto } from './dtos/authentication.dto';
 
@@ -12,6 +12,7 @@ export class AuthenticateUserController {
     if(!result){
         throw new UnauthorizedException
     } else {
+      console.log(result)
         return result
     }
   }
